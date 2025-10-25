@@ -1,16 +1,63 @@
-# React + Vite
+# Krishna Panthi Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Light/Dark mode toggle
+- Animated skills marquee
+- Project carousel (desktop) and horizontal scroll (mobile)
+- Contact form (Formspree integration, .env-based form ID)
+- Responsive design for all devices
+- Custom theming and smooth transitions
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lucide Icons](https://lucide.dev/)
+- [Formspree](https://formspree.io/) (contact form)
 
-## Expanding the ESLint configuration
+## 📦 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Clone the repo:**
+   ```sh
+   git clone https://github.com/yourusername/your-portfolio.git
+   cd your-portfolio/frontend
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+3. **Set up environment variables:**
+   - Create a `.env` file in the `frontend` folder:
+     ```env
+     VITE_FORMSPREE_FORM_ID=your_formspree_id
+     ```
+4. **Run locally:**
+
+   ```sh
+   npm run dev
+   ```
+
+   Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+5. **Build for production:**
+   ```sh
+   npm run build
+   ```
+   The production-ready files will be in the `dist/` folder.
+
+## 🌐 Deployment
+
+- Upload the contents of `dist/` to your static host (Vercel, Netlify, GitHub Pages, etc).
+- For Vercel/Netlify, you can connect your repo and set the build command to `npm run build` and output directory to `dist`.
+
+## 📄 License
+
+MIT
+
+---
+
+> Designed and developed by Krishna Panthi
