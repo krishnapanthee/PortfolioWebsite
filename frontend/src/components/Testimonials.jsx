@@ -3,12 +3,16 @@ import { useTheme } from "../context/ThemeContext";
 
 const TestimonialCard = ({ quote, author, role, link, theme }) => {
   return (
-    <div className={`${
-      theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
-    } rounded-xl p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[240px] sm:min-h-[260px] transition-colors duration-300`}>
-      <p className={`text-base sm:text-lg md:text-xl leading-relaxed ${
-        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-      } italic mb-6 transition-colors duration-300`}>
+    <div
+      className={`${
+        theme === "dark" ? "bg-gray-900" : "bg-gray-50"
+      } rounded-xl p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[240px] sm:min-h-[260px] transition-colors duration-300`}
+    >
+      <p
+        className={`text-base sm:text-lg md:text-xl leading-relaxed ${
+          theme === "dark" ? "text-gray-300" : "text-gray-600"
+        } italic mb-6 transition-colors duration-300`}
+      >
         "{quote}"
       </p>
       {link ? (
@@ -17,27 +21,35 @@ const TestimonialCard = ({ quote, author, role, link, theme }) => {
           target="_blank"
           rel="noopener noreferrer"
           className={`block font-semibold ${
-            theme === 'dark' ? 'text-white hover:text-orange-500' : 'text-gray-900 hover:text-orange-500'
+            theme === "dark"
+              ? "text-white hover:text-orange-500"
+              : "text-gray-900 hover:text-orange-500"
           } transition-colors duration-300`}
         >
           {author}
           {role && (
-            <span className={`block text-sm font-normal ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-            } mt-1 transition-colors duration-300`}>
+            <span
+              className={`block text-sm font-normal ${
+                theme === "dark" ? "text-gray-400" : "text-gray-500"
+              } mt-1 transition-colors duration-300`}
+            >
               {role}
             </span>
           )}
         </a>
       ) : (
-        <div className={`font-semibold ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>
+        <div
+          className={`font-semibold ${
+            theme === "dark" ? "text-white" : "text-gray-900"
+          }`}
+        >
           {author}
           {role && (
-            <span className={`block text-sm font-normal ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-            } mt-1 transition-colors duration-300`}>
+            <span
+              className={`block text-sm font-normal ${
+                theme === "dark" ? "text-gray-400" : "text-gray-500"
+              } mt-1 transition-colors duration-300`}
+            >
               {role}
             </span>
           )}
@@ -50,30 +62,15 @@ const TestimonialCard = ({ quote, author, role, link, theme }) => {
 const Testimonials = () => {
   const { theme } = useTheme();
 
-const testimonials = [
-  {
-    quote:
-      "Working with Krishna was an excellent experience. He completely revamped our consultancy website, making it faster, modern, and more professional. Communication was smooth, and he really understood our needs.",
-    author: "Sanjana Shrestha",
-    role: "Managing Director, EduNepal Consultancy",
-    link: "https://linkedin.com/in/sanjanashrestha",
-  },
-  {
-    quote:
-      "Krishna helped us create our company portfolio site from the ground up. His attention to design details and clean UI made our brand look much more credible online.",
-    author: "Rohit Gurung",
-    role: "Founder, Himalayan Digital Studio",
-    link: "https://linkedin.com/in/rohitgurung",
-  },
-  {
-    quote:
-      "We collaborated with Krishna to build an LMS platform for our training institute. From dashboard design to responsive layout, everything was handled professionally. Highly recommend him!",
-    author: "Anisha KC",
-    role: "Program Director, LearnHub Nepal",
-    link: "https://linkedin.com/in/anishakc",
-  },
-];
-
+  const testimonials = [
+    {
+      quote:
+        "Working with Krishna was an excellent experience. He completely revamped our consultancy website, making it faster, modern, and more professional. Communication was smooth, and he really understood our needs.",
+      author: "Sanjana Shrestha",
+      role: "Managing Director, EduNepal Consultancy",
+      link: "https://linkedin.com/in/sanjanashrestha",
+    },
+  ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
@@ -89,14 +86,19 @@ const testimonials = [
   }, [hovered, testimonials.length]);
 
   return (
-    <div id="testimonials" className={`py-16 sm:py-20 md:py-24 px-6 sm:px-8 ${
-      theme === 'dark' ? 'bg-black' : 'bg-white'
-    } transition-colors duration-300`}>
+    <div
+      id="testimonials"
+      className={`py-16 sm:py-20 md:py-24 px-6 sm:px-8 ${
+        theme === "dark" ? "bg-black" : "bg-white"
+      } transition-colors duration-300`}
+    >
       {/* Section Title */}
       <div className="text-center mb-12 sm:mb-14 md:mb-16">
-        <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        } transition-colors duration-300`}>
+        <h2
+          className={`text-3xl sm:text-4xl md:text-5xl font-bold ${
+            theme === "dark" ? "text-white" : "text-gray-900"
+          } transition-colors duration-300`}
+        >
           Client <span className="text-orange-500">Feedback</span>
         </h2>
         <div className="w-20 h-1 bg-orange-500 mx-auto mt-3"></div>
@@ -128,7 +130,11 @@ const testimonials = [
             className={`h-2.5 sm:h-3 rounded-full transition-all duration-300 ${
               index === currentIndex
                 ? "bg-orange-500 w-8 sm:w-10"
-                : `${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-300 hover:bg-gray-400'} w-2.5 sm:w-3`
+                : `${
+                    theme === "dark"
+                      ? "bg-gray-700 hover:bg-gray-600"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  } w-2.5 sm:w-3`
             }`}
             aria-label={`Go to testimonial ${index + 1}`}
           />

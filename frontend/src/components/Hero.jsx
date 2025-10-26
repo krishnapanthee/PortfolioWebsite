@@ -1,21 +1,14 @@
 import { useTheme } from "../context/ThemeContext";
-import heroImg from "../assets/imgPortfolio.png";
+import heroImg from "../assets/imgPortfolio.jpg";
 
 const Hero = () => {
   const { theme } = useTheme();
 
-  
-  const handleNavClick = (e, href) => {
-    e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <div 
-      className={`flex ${theme === 'dark' ? 'bg-[#090909]' : 'bg-gray-50'} justify-center w-full mt-12 sm:mt-14 md:mt-16 transition-colors duration-300`}
+    <div
+      className={`flex ${
+        theme === "dark" ? "bg-[#090909]" : "bg-gray-50"
+      } justify-center w-full mt-12 sm:mt-14 md:mt-16 transition-colors duration-300`}
     >
       {/* Hero Container */}
       <div className="relative rounded-xl max-w-[1200px] w-full p-4 sm:p-5 md:p-6 z-[1]">
@@ -36,32 +29,31 @@ const Hero = () => {
           {/* Left Text Section */}
           <div className="flex-1 max-w-full md:pl-4 lg:pl-8 order-2 md:order-1">
             {/* Greeting */}
-            <h3 
+            <h3
               className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-3 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
+                theme === "dark" ? "text-white" : "text-gray-900"
               } transition-colors duration-300`}
             >
-              Hi, I'm 
+              Hi, I'm
             </h3>
 
             {/* Name */}
-            <h1 
+            <h1
               className={`text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
+                theme === "dark" ? "text-white" : "text-gray-900"
               } transition-colors duration-300 leading-tight`}
             >
               <span className="text-orange-500">Krishna Panthi</span>
             </h1>
 
             {/* Subtitle */}
-            <p 
+            <p
               className={`text-base sm:text-lg md:text-xl lg:text-2xl mt-2 sm:mt-3 md:mt-4 ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                theme === "dark" ? "text-gray-300" : "text-gray-600"
               } transition-colors duration-300`}
             >
               Aspiring Web Developer
             </p>
-            
 
             {/* Call-to-Action Buttons */}
             <div className="mt-6 sm:mt-7 md:mt-8 flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4">
@@ -89,8 +81,8 @@ const Hero = () => {
           {/* Right Image Section - Hidden on Mobile, Visible on Desktop */}
           <div className="hidden md:flex flex-1 justify-center items-center order-3 md:order-2">
             <img
-             src={heroImg}
-             alt="Developer Profile"
+              src={heroImg}
+              alt="Developer Profile"
               className="w-[280px] h-[280px] lg:w-[320px] lg:h-[320px] rounded-full object-cover border-4 border-orange-500 shadow-lg shadow-orange-500/30"
             />
           </div>
