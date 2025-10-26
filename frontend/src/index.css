@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Base Reset ===== */
 * {
   margin: 0;
   padding: 0;
@@ -12,33 +13,38 @@
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #000;
+  color: #fff;
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
-  margin: 0;
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 #root {
   min-height: 100vh;
   background: none !important;
-  margin: 0;
   width: 100vw;
   max-width: 100vw;
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
+/* ===== Light Mode ===== */
 @media (prefers-color-scheme: light) {
   body {
-    background-color: #ffffff;
-    color: #000000;
-  }
-  #root {
-    background: none !important;
+    background-color: #fff;
+    color: #000;
   }
 }
 
-/* Animated Border Effect */
+/* ===== Optional Custom Toggle Transition ===== */
+/* Add this class dynamically (e.g., with JS or React state)
+   when toggling between light/dark manually */
+.theme-transition {
+  transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+
+/* ===== Animated Border Effect ===== */
 .border-animation {
   position: relative;
 }
@@ -46,52 +52,33 @@ body {
 .border-animation::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   border-radius: 10px;
   padding: 5px;
   background: linear-gradient(90deg, #ff5722, #1a1a1a, #ff5722, #1a1a1a);
   background-size: 300% 300%;
-  z-index: -1;
   animation: border-move 5s linear infinite;
+  z-index: -1;
+
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-mask-composite: exclude;
-
--webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
--webkit-mask-composite: xor;
-
-  -webkit-mask-composite: destination-out;
   mask-composite: exclude;
 }
-   
+
 @keyframes border-move {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
-/* Typing Animation */
+/* ===== Typing Animation ===== */
 @keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 @keyframes blink {
-  from {
-    border-color: transparent;
-  }
-  to {
-    border-color: #ff9800;
-  }
+  50% { border-color: transparent; }
 }
 
 .typing-effect {
@@ -101,14 +88,11 @@ mask-composite: exclude;
   animation: typing 4s steps(40, end), blink 0.5s step-end infinite;
 }
 
-/* Loader */
+/* ===== Loader ===== */
 .loader {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
+  inset: 0;
+  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,28 +109,86 @@ mask-composite: exclude;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-/* Marquee animation for skills */
+/* ===== Marquee ===== */
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 .animate-marquee {
-  animation: marquee 20s linear infinite;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-paused {
+  animation: marquee 30s linear infinite;
+  animation-play-state: paused;
 }
 
 .hover\:pause:hover {
   animation-play-state: paused;
+}
+
+/* ===== Subtle Pulse ===== */
+@keyframes pulse-subtle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* ===== Fade / Expand Animations ===== */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 5rem; }
+}
+
+/* ===== Animation Classes ===== */
+.animate-fadeInDown { animation: fadeInDown 0.6s ease-out forwards; }
+.animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+.animate-fadeInScale { animation: fadeInScale 0.8s ease-out forwards; }
+.animate-expandWidth {
+  animation: expandWidth 0.8s ease-out 0.3s forwards;
+  width: 0;
+}
+
+/* ===== Shimmer Effect ===== */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
 }

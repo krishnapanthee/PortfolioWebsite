@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 const TestimonialCard = ({ quote, author, role, link, theme }) => {
@@ -6,7 +6,11 @@ const TestimonialCard = ({ quote, author, role, link, theme }) => {
     <div
       className={`${
         theme === "dark" ? "bg-gray-900" : "bg-gray-50"
-      } rounded-xl p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[240px] sm:min-h-[260px] transition-colors duration-300`}
+      } rounded-xl p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[240px] sm:min-h-[260px] transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${
+        theme === "dark"
+          ? "hover:shadow-orange-500/20"
+          : "hover:shadow-orange-500/30"
+      }`}
     >
       <p
         className={`text-base sm:text-lg md:text-xl leading-relaxed ${
@@ -24,7 +28,7 @@ const TestimonialCard = ({ quote, author, role, link, theme }) => {
             theme === "dark"
               ? "text-white hover:text-orange-500"
               : "text-gray-900 hover:text-orange-500"
-          } transition-colors duration-300`}
+          } transition-all duration-300 hover:translate-x-1`}
         >
           {author}
           {role && (
@@ -61,6 +65,29 @@ const TestimonialCard = ({ quote, author, role, link, theme }) => {
 
 const Testimonials = () => {
   const { theme } = useTheme();
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   const testimonials = [
     {
@@ -88,12 +115,17 @@ const Testimonials = () => {
   return (
     <div
       id="testimonials"
+      ref={sectionRef}
       className={`py-16 sm:py-20 md:py-24 px-6 sm:px-8 ${
         theme === "dark" ? "bg-black" : "bg-white"
       } transition-colors duration-300`}
     >
       {/* Section Title */}
-      <div className="text-center mb-12 sm:mb-14 md:mb-16">
+      <div
+        className={`text-center mb-12 sm:mb-14 md:mb-16 ${
+          isVisible ? "animate-fadeInDown" : "opacity-0"
+        }`}
+      >
         <h2
           className={`text-3xl sm:text-4xl md:text-5xl font-bold ${
             theme === "dark" ? "text-white" : "text-gray-900"
@@ -101,10 +133,15 @@ const Testimonials = () => {
         >
           Client <span className="text-orange-500">Feedback</span>
         </h2>
-        <div className="w-20 h-1 bg-orange-500 mx-auto mt-3"></div>
+        <div className="w-20 h-1 bg-orange-500 mx-auto mt-3 animate-expandWidth"></div>
       </div>
 
-      <div className="relative flex justify-center items-center min-h-[280px] sm:min-h-[300px] w-full">
+      <div
+        className={`relative flex justify-center items-center min-h-[280px] sm:min-h-[300px] w-full ${
+          isVisible ? "animate-fadeIn" : "opacity-0"
+        }`}
+        style={{ animationDelay: "0.2s" }}
+      >
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
@@ -122,7 +159,12 @@ const Testimonials = () => {
       </div>
 
       {/* Pagination dots */}
-      <div className="flex justify-center gap-2 sm:gap-3 mt-8 sm:mt-10">
+      <div
+        className={`flex justify-center gap-2 sm:gap-3 mt-8 sm:mt-10 ${
+          isVisible ? "animate-fadeInUp" : "opacity-0"
+        }`}
+        style={{ animationDelay: "0.4s" }}
+      >
         {testimonials.map((_, index) => (
           <button
             key={index}
@@ -135,7 +177,7 @@ const Testimonials = () => {
                       ? "bg-gray-700 hover:bg-gray-600"
                       : "bg-gray-300 hover:bg-gray-400"
                   } w-2.5 sm:w-3`
-            }`}
+            } hover:scale-110`}
             aria-label={`Go to testimonial ${index + 1}`}
           />
         ))}
