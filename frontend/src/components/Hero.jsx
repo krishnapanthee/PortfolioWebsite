@@ -1,5 +1,5 @@
 import { useTheme } from "../context/ThemeContext";
-import heroImg from "../assets/imgPortfolio.jpg";
+import heroImg from "../assets/imgPortfolio-oXRpLsjI.png";
 
 const Hero = () => {
   const { theme } = useTheme();
