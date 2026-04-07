@@ -39,7 +39,7 @@ const Hero = () => {
           </h1>
           <p className={`text-lg sm:text-l md:text-xl max-w-xl mx-auto leading-relaxed ${theme === "dark" ? "text-gray-400" : "text-gray-500"
             } animate-fadeInUp`} style={{ animationDelay: "0.3s" }}>
-            Full-Stack Developer specializing in building <span className="text-orange-500">modern</span>, efficient, and user-centric web applications.
+            Full-Stack Developer passionate about building <span className="text-orange-500">modern</span>, efficient, and user-centric web applications.
           </p>
         </div>
 
