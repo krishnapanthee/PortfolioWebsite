@@ -75,7 +75,7 @@ const Projects = () => {
       title: "Rick & Morty Explorer",
       description:
         "An interactive dashboard fetching real-time character data from the Rick & Morty API, featuring advanced filtering and pagination.",
-      github: "https://github.com/krishnapanthee/rick-morty-explorer",
+      github: "https://github.com/krishnapanthee/rickmortyexplorer",
       demo: "https://rickmortyexplorer.vercel.app/",
     },
     {
@@ -90,7 +90,7 @@ const Projects = () => {
       image: saipal,
       title: "Saipal",
       description: "An school website for Saipal Academy",
-      github: "https://github.com/krishnapanthee/saipal",
+      github: "https://github.com/UddheshyaGroup/Saipal-Website",
       demo: "https://saipal.edu.np/",
     }
 
@@ -142,9 +142,8 @@ const Projects = () => {
         {/* Mobile Swipe View (Scroll Snapping) */}
         <div className="block lg:hidden">
           <div
-            className={`flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory no-scrollbar ${
-              isVisible ? "animate-fadeIn" : "opacity-0"
-            }`}
+            className={`flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory no-scrollbar ${isVisible ? "animate-fadeIn" : "opacity-0"
+              }`}
             onScroll={(e) => {
               const container = e.currentTarget;
               const index = Math.round(container.scrollLeft / container.offsetWidth);
@@ -152,7 +151,7 @@ const Projects = () => {
                 setCurrentIndex(index);
               }
             }}
-            style={{ 
+            style={{
               animationDelay: "0.2s",
               scrollbarWidth: 'none',
               msOverflowStyle: 'none'
@@ -179,11 +178,10 @@ const Projects = () => {
           {/* Left Arrow */}
           <button
             onClick={handlePrev}
-            className={`absolute left-[-60px] z-10 p-4 rounded-full transition-all duration-300 ${
-              theme === "dark"
-                ? "bg-gray-900 border-gray-800 text-orange-500 hover:bg-gray-800"
-                : "bg-white border-gray-200 text-orange-500 hover:bg-gray-100"
-            } border shadow-xl hover:scale-110 active:scale-95`}
+            className={`absolute left-[-60px] z-10 p-4 rounded-full transition-all duration-300 ${theme === "dark"
+              ? "bg-gray-900 border-gray-800 text-orange-500 hover:bg-gray-800"
+              : "bg-white border-gray-200 text-orange-500 hover:bg-gray-100"
+              } border shadow-xl hover:scale-110 active:scale-95`}
           >
             <ChevronLeft size={28} />
           </button>
@@ -192,9 +190,8 @@ const Projects = () => {
             {projects.map((project, index) => (
               <div
                 key={index}
-                className={`transition-all duration-700 w-full ${
-                  index === currentIndex ? "opacity-100 block translate-x-0" : "opacity-0 hidden translate-x-10"
-                }`}
+                className={`transition-all duration-700 w-full ${index === currentIndex ? "opacity-100 block translate-x-0" : "opacity-0 hidden translate-x-10"
+                  }`}
               >
                 <ProjectItem
                   {...project}
@@ -209,11 +206,10 @@ const Projects = () => {
           {/* Right Arrow */}
           <button
             onClick={handleNext}
-            className={`absolute right-[-60px] z-10 p-4 rounded-full transition-all duration-300 ${
-              theme === "dark"
-                ? "bg-gray-900 border-gray-800 text-orange-500 hover:bg-gray-800"
-                : "bg-white border-gray-200 text-orange-500 hover:bg-gray-100"
-            } border shadow-xl hover:scale-110 active:scale-95`}
+            className={`absolute right-[-60px] z-10 p-4 rounded-full transition-all duration-300 ${theme === "dark"
+              ? "bg-gray-900 border-gray-800 text-orange-500 hover:bg-gray-800"
+              : "bg-white border-gray-200 text-orange-500 hover:bg-gray-100"
+              } border shadow-xl hover:scale-110 active:scale-95`}
           >
             <ChevronRight size={28} />
           </button>
@@ -238,11 +234,10 @@ const Projects = () => {
                   });
                 }
               }}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex
-                  ? "bg-orange-500 w-8"
-                  : `${theme === "dark" ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-300 hover:bg-gray-400"} w-2`
-              }`}
+              className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                ? "bg-orange-500 w-8"
+                : `${theme === "dark" ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-300 hover:bg-gray-400"} w-2`
+                }`}
               aria-label={`Go to project ${index + 1}`}
             />
           ))}
