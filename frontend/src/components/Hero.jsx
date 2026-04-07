@@ -60,7 +60,8 @@ const Hero = () => {
 
           <a
             href="/resume.pdf"
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             className={`flex items-center justify-center gap-2 px-8 py-3.5 border rounded-full font-bold transition-all hover:scale-105 ${theme === "dark"
               ? "border-gray-800 bg-gray-900/50 hover:bg-gray-800 text-white"
               : "border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-900"
