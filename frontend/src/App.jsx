@@ -5,10 +5,8 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
-import Testimonials from "./components/Testimonials";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import BackToTop from "./components/BackToTop";
+import AiAssistant from "./components/AiAssistant";
 import "./App.css";
 
 /**
@@ -17,23 +15,11 @@ import "./App.css";
  */
 const AppContent = () => {
   const { theme } = useTheme();
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Initial loading animation
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
-  }, []);
-
-  // Handle scroll events for back-to-top button
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 300);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Show loading spinner
@@ -63,16 +49,14 @@ const AppContent = () => {
           <About />
           <Skills />
           <Projects />
-          <Testimonials />
-          <Contact />
         </div>
       </div>
 
-      {/* Footer */}
+      {/* Footr */}
       <Footer />
 
-      {/* Back to Top Button */}
-      <BackToTop show={showBackToTop} />
+      {/* AI Assistant Floating Chat */}
+      <AiAssistant />
     </div>
   );
 };

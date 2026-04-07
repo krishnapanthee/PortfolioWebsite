@@ -4,7 +4,6 @@ import {
   User,
   Lightbulb,
   Briefcase,
-  Mail,
   Moon,
   Sun,
   Menu,
@@ -23,7 +22,6 @@ const Header = () => {
     { icon: User, label: "About", href: "#about" },
     { icon: Lightbulb, label: "Skills", href: "#skills" },
     { icon: Briefcase, label: "Projects", href: "#projects" },
-    { icon: Mail, label: "Contact", href: "#contact" },
   ];
 
   const handleNavClick = (e, href) => {
@@ -86,7 +84,8 @@ const Header = () => {
         </button>
       </div>
 
-      <div className="sm:hidden flex items-center gap-2">
+      {/* Mobile Hamburger Menu Button */}
+      <div className="sm:hidden flex items-center gap-4">
         {/* Theme Toggle Button - Mobile */}
         <button
           onClick={toggleTheme}
@@ -96,37 +95,65 @@ const Header = () => {
           {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
         </button>
 
-        {/* Hamburger Menu Button */}
         <button
-          onClick={() => setIsMenuOpen((prev) => !prev)}
+          onClick={() => setIsMenuOpen(true)}
           className="text-orange-500 hover:text-orange-400 transition-colors"
-          aria-label="Toggle Menu"
+          aria-label="Open Menu"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          <Menu size={28} />
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Sidebar Overlay */}
       <div
-        className={`sm:hidden absolute top-full left-0 w-full ${
-          theme === "dark" ? "bg-black" : "bg-white"
-        } border-t border-orange-500/50 flex flex-col items-stretch overflow-hidden transition-all duration-300 ${
-          isMenuOpen ? "max-h-[500px] py-2" : "max-h-0 py-0"
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[1000] transition-opacity duration-500 sm:hidden ${
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
+        onClick={() => setIsMenuOpen(false)}
+      ></div>
+
+      {/* Mobile Right Sidebar */}
+      <div
+        className={`fixed top-0 right-0 h-screen w-[280px] z-[1001] transition-transform duration-500 ease-in-out sm:hidden ${
+          theme === "dark" ? "bg-black border-l border-gray-800" : "bg-white border-l border-gray-100"
+        } ${isMenuOpen ? "translate-x-0" : "translate-x-full shadow-none"}`}
       >
-        {navItems.map(({ icon: Icon, href, label }) => (
-          <a
-            key={href}
-            href={href}
-            onClick={(e) => handleNavClick(e, href)}
-            className="w-full flex flex-row items-center justify-start text-orange-500 hover:text-orange-400 transition-colors py-2 px-6 min-h-[44px] gap-3"
-          >
-            <span className="flex items-center justify-center w-7 h-7">
-              <Icon size={20} />
-            </span>
-            <span className="text-base">{label}</span>
-          </a>
-        ))}
+        <div className="flex flex-col h-full p-6">
+          <div className="flex justify-between items-center mb-10">
+            <span className="text-xl font-bold text-orange-500">Menu</span>
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="text-orange-500 hover:rotate-90 transition-transform duration-300"
+            >
+              <X size={28} />
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            {navItems.map(({ icon: Icon, href, label }, index) => (
+              <a
+                key={href}
+                href={href}
+                onClick={(e) => handleNavClick(e, href)}
+                className={`flex items-center gap-4 text-lg font-medium transition-all duration-300 ${
+                  theme === "dark" ? "text-gray-300 hover:text-orange-500" : "text-gray-700 hover:text-orange-500"
+                } ${isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"}`}
+                style={{ transitionDelay: `${index * 50 + 100}ms` }}
+              >
+                <div className={`p-2 rounded-lg ${theme === "dark" ? "bg-gray-900" : "bg-gray-50"}`}>
+                  <Icon size={20} className="text-orange-500" />
+                </div>
+                {label}
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-auto pt-10 border-t border-gray-800/10">
+             <p className="text-xs text-gray-500 text-center uppercase tracking-widest font-bold">
+               Krishna Panthi
+             </p>
+          </div>
+        </div>
       </div>
     </nav>
   );
