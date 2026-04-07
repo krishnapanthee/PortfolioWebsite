@@ -23,7 +23,10 @@ const Hero = () => {
             } group-hover:border-orange-500`}>
             <img
               src={heroImg}
-              alt="Krishna Panthi"
+              alt="Krishna Panthi - Full-Stack Developer specializing in MERN stack"
+              width="160"
+              height="160"
+              loading="eager"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>

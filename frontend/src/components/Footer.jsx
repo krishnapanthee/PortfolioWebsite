@@ -20,6 +20,7 @@ const Footer = () => {
             }`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Connect on Facebook"
         >
           <Facebook size={20} />
         </a>
@@ -32,6 +33,7 @@ const Footer = () => {
               : "text-[#ff9800] hover:text-black"
             }`}
           title="Email me via Gmail"
+          aria-label="Send me an Email"
         >
           <Mail size={20} />
         </a>
@@ -43,6 +45,7 @@ const Footer = () => {
             }`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Follow me on X (Twitter)"
         >
           <Twitter size={20} />
         </a>
@@ -54,6 +57,7 @@ const Footer = () => {
             }`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Connect on LinkedIn"
         >
           <Linkedin size={20} />
         </a>
@@ -65,6 +69,7 @@ const Footer = () => {
             }`}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="View Github Profile"
         >
           <Github size={20} />
         </a>

@@ -269,7 +269,8 @@ const ProjectItem = ({
       <div className="w-full overflow-hidden rounded-lg group">
         <img
           src={image}
-          alt={title}
+          alt={`Screenshot of ${title} - ${description.substring(0, 50)}...`}
+          loading="lazy"
           className="w-full h-[180px] sm:h-[200px] md:h-[220px] object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
