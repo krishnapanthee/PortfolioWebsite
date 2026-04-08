@@ -192,3 +192,23 @@ body {
 .animate-shimmer {
   animation: shimmer 3s ease-in-out infinite;
 }
+
+/* ===== AI Assistant Animations ===== */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(20deg); }
+}
+
+.animate-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
+  transform-origin: bottom right;
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 3s ease-in-out infinite;
+}
