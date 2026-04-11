@@ -58,7 +58,7 @@ const About = () => {
             className={`text-base sm:text-lg leading-relaxed ${theme === "dark" ? "text-gray-300" : "text-gray-600"
               } mb-8`}
           >
-            I'm a full-stack developer from Nepal specialized in the <span className="font-semibold text-orange-500">MERN stack</span>. I build clean, efficient digital solutions and thrive on building with <span className="font-semibold text-orange-500">Next.js and PostgreSQL</span>. My goal is to create web applications that are as powerful as they are intuitive.
+            I'm <span className="font-semibold text-orange-500">Krishna Prasad Panthi</span>, a dedicated full-stack developer from Nepal specialized in the <span className="font-semibold text-orange-500">MERN stack</span>. I build clean, efficient digital solutions and thrive on building with <span className="font-semibold text-orange-500">Next.js and PostgreSQL</span>. My goal is to create web applications that are as powerful as they are intuitive.
           </p>
         </div>
 

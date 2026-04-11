@@ -40,9 +40,11 @@ const Hero = () => {
           <h1 className="text-4xl text-orange-500 sm:text-6xl md:text-7xl font-bold tracking-tight animate-fadeInUp" style={{ animationDelay: "0.2s" }}>
             Krishna Panthi
           </h1>
+          {/* SEO hidden text for domain relevance */}
+          <h2 className="sr-only">Krishna Prasad Panthi - Full Stack Developer Portfolio</h2>
           <p className={`text-lg sm:text-l md:text-xl max-w-xl mx-auto leading-relaxed ${theme === "dark" ? "text-gray-400" : "text-gray-500"
             } animate-fadeInUp`} style={{ animationDelay: "0.3s" }}>
-            Full-Stack Developer passionate about building modern, efficient, and user-centric web applications.
+            Professional Full-Stack Developer specializing in building modern, efficient, and user-centric web applications with the MERN stack.
           </p>
         </div>
 
