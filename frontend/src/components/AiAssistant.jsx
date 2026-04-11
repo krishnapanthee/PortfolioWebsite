@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Sparkles, X, Send, User, Loader2 } from "lucide-react";
+import { Sparkles, X, Send, User, Loader2, RotateCcw } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import heroImg from "../assets/imgPortfolio.png";
 
@@ -54,6 +54,16 @@ const AiAssistant = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef(null);
+  
+  const handleClearChat = () => {
+    setMessages([
+      {
+        role: "assistant",
+        content: "Hi! Ask anything about me.",
+      },
+    ]);
+    setIsLoading(false);
+  };
 
   // Auto-scroll to latest message
   useEffect(() => {
@@ -250,12 +260,21 @@ const AiAssistant = () => {
               <img src={heroImg} alt="Krishna" className="w-7 h-7 rounded-full object-cover border border-white/30 shadow-sm" />
               <span className="font-bold uppercase tracking-wider text-sm">Krishna AI</span>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="hover:rotate-90 transition-transform duration-300"
-            >
-              <X size={20} />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleClearChat}
+                title="Clear Chat"
+                className="p-1.5 hover:bg-white/10 rounded-lg transition-colors duration-200"
+              >
+                <RotateCcw size={18} />
+              </button>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="hover:rotate-90 transition-transform duration-300"
+              >
+                <X size={20} />
+              </button>
+            </div>
           </div>
 
           {/* Messages Area */}
