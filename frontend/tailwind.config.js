@@ -4,23 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#ff9800",
-        primaryDark: "#e68a00",
-        secondary: "#ff5722",
-        dark: "#1a1a1a",
+        em: "#10b981",
       },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-      },
-      animation: {
-        "border-move": "border-move 5s linear infinite",
-        "spin-slow": "spin 1s linear infinite",
-      },
-      keyframes: {
-        "border-move": {
-          "0%": { backgroundPosition: "0% 50%" },
-          "100%": { backgroundPosition: "100% 50%" },
-        },
+        sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "Fira Code", "monospace"],
       },
     },
   },

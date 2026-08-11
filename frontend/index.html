@@ -59,7 +59,16 @@
     />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Native loader: visible only until React mounts and replaces this content -->
+      <style>
+        .init-loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#fafafa}
+        .init-spinner{width:20px;height:20px;border:2px solid transparent;border-top-color:#0a0a0a;border-radius:50%;animation:init-spin .7s linear infinite}
+        @keyframes init-spin{to{transform:rotate(360deg)}}
+        @media(prefers-color-scheme:dark){.init-loader{background:#0a0a0a}.init-spinner{border-top-color:#fafafa}}
+      </style>
+      <div class="init-loader"><div class="init-spinner"></div></div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

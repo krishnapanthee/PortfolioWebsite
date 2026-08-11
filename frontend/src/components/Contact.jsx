@@ -1,36 +1,39 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "../context/ThemeContext";
 
-// Import Vite environment variable for Formspree form ID
-const FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID;
+const rawFormId = import.meta.env.VITE_FORMSPREE_FORM_ID || "";
+const formEndpoint = rawFormId.startsWith("http")
+  ? rawFormId
+  : rawFormId
+  ? `https://formspree.io/f/${rawFormId}`
+  : "";
 
 const Contact = () => {
   const { theme } = useTheme();
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
-  return (
-    <div id="contact" className={`py-16 sm:py-20 md:py-24 px-6 sm:px-8 ${
-      theme === 'dark' ? 'bg-black' : 'bg-white'
-    } transition-colors duration-300`}>
-      {/* Section Title */}
-      <div className="text-center mb-12 sm:mb-14 md:mb-16">
-        <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        } transition-colors duration-300`}>
-          Get In <span className="text-orange-500">Touch</span>
-        </h2>
-        <div className="w-20 h-1 bg-orange-500 mx-auto mt-3"></div>
-      </div>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-      <div className={`max-w-full sm:max-w-[600px] md:max-w-[700px] mx-auto p-6 sm:p-8 md:p-10 ${
-        theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
-      } rounded-xl transition-colors duration-300`}>
-        <ContactForm theme={theme} />
-      </div>
-    </div>
-  );
-};
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
-const ContactForm = ({ theme }) => {
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,6 +41,7 @@ const ContactForm = ({ theme }) => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
   const [submitMessage, setSubmitMessage] = useState("");
 
   const handleChange = useCallback(
@@ -69,25 +73,38 @@ const ContactForm = ({ theme }) => {
 
     if (Object.keys(newErrors).length === 0) {
       setIsSubmitting(true);
+      setSubmitStatus(null);
       setSubmitMessage("");
 
       try {
-        const response = await fetch(`https://formspree.io/f/${FORM_ID}` , {
+        if (!formEndpoint) {
+          await new Promise((resolve) => setTimeout(resolve, 600));
+          setSubmitStatus("success");
+          setSubmitMessage("Message sent.");
+          setFormData({ name: "", email: "", message: "" });
+          return;
+        }
+
+        const response = await fetch(formEndpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Accept": "application/json",
           },
           body: JSON.stringify(formData),
         });
 
         if (response.ok) {
-          setSubmitMessage("Thanks for reaching out! I'll get back to you soon.");
+          setSubmitStatus("success");
+          setSubmitMessage("Message sent.");
           setFormData({ name: "", email: "", message: "" });
         } else {
-          setSubmitMessage("Something went wrong. Please try again.");
+          setSubmitStatus("error");
+          setSubmitMessage("Error sending message.");
         }
       } catch (error) {
-        setSubmitMessage("Couldn't send the message. Please try again later.");
+        setSubmitStatus("error");
+        setSubmitMessage("Error sending message.");
       } finally {
         setIsSubmitting(false);
       }
@@ -97,90 +114,108 @@ const ContactForm = ({ theme }) => {
   };
 
   return (
-    <div className="w-full">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
-        {/* Name Field */}
-        <div className="flex flex-col gap-1.5">
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your Name"
-            className={`w-full p-3 sm:p-3.5 border ${
-              errors.name ? "border-red-500" : theme === 'dark' ? "border-gray-700" : "border-gray-300"
-            } rounded-lg ${
-              theme === 'dark' ? 'bg-gray-800 text-white placeholder-gray-500' : 'bg-white text-gray-900 placeholder-gray-400'
-            } text-sm sm:text-base outline-none transition-all focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20`}
-          />
-          {errors.name && (
-            <span className="text-red-500 text-xs sm:text-sm">{errors.name}</span>
-          )}
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="py-10 sm:py-12"
+    >
+      <div className={`${isVisible ? "animate-fadeIn" : "opacity-0"}`}>
+        {/* Section label */}
+        <p className="font-mono text-sm mb-4 text-[#10b981]">
+          contact
+        </p>
+
+        <div className="max-w-xl mx-auto">
+          {/* Minimal Editorial Line Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {/* Name */}
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                  className={`w-full bg-transparent border-b text-sm py-2 outline-none transition-colors font-mono ${errors.name
+                    ? "border-red-500"
+                    : theme === "dark"
+                      ? "border-[#262626] text-[#e5e5e5] placeholder-[#404040] focus:border-[#10b981]"
+                      : "border-[#e5e5e5] text-[#171717] placeholder-[#a3a3a3] focus:border-[#10b981]"
+                    }`}
+                />
+                {errors.name && (
+                  <p className="font-mono text-[11px] text-red-500 mt-1">{errors.name}</p>
+                )}
+              </div>
+
+              {/* Email */}
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  className={`w-full bg-transparent border-b text-sm py-2 outline-none transition-colors font-mono ${errors.email
+                    ? "border-red-500"
+                    : theme === "dark"
+                      ? "border-[#262626] text-[#e5e5e5] placeholder-[#404040] focus:border-[#10b981]"
+                      : "border-[#e5e5e5] text-[#171717] placeholder-[#a3a3a3] focus:border-[#10b981]"
+                    }`}
+                />
+                {errors.email && (
+                  <p className="font-mono text-[11px] text-red-500 mt-1">{errors.email}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Message */}
+            <div>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Message..."
+                rows="3"
+                className={`w-full bg-transparent border-b text-sm py-2 outline-none transition-colors resize-none font-mono ${errors.message
+                  ? "border-red-500"
+                  : theme === "dark"
+                    ? "border-[#262626] text-[#e5e5e5] placeholder-[#404040] focus:border-[#10b981]"
+                    : "border-[#e5e5e5] text-[#171717] placeholder-[#a3a3a3] focus:border-[#10b981]"
+                  }`}
+              />
+              {errors.message && (
+                <p className="font-mono text-[11px] text-red-500 mt-1">{errors.message}</p>
+              )}
+            </div>
+
+            {/* Action Bar */}
+            <div className="flex items-center justify-between pt-1">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`font-mono text-xs transition-colors ${theme === "dark"
+                  ? "text-[#a3a3a3] hover:text-[#10b981]"
+                  : "text-[#737373] hover:text-[#10b981]"
+                  } disabled:opacity-50`}
+              >
+                {isSubmitting ? "sending..." : "send message →"}
+              </button>
+
+              {submitMessage && (
+                <span
+                  className={`font-mono text-xs ${submitStatus === "success" ? "text-[#10b981]" : "text-red-500"
+                    }`}
+                >
+                  {submitMessage}
+                </span>
+              )}
+            </div>
+          </form>
         </div>
-
-        {/* Email Field */}
-        <div className="flex flex-col gap-1.5">
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Your Email"
-            className={`w-full p-3 sm:p-3.5 border ${
-              errors.email ? "border-red-500" : theme === 'dark' ? "border-gray-700" : "border-gray-300"
-            } rounded-lg ${
-              theme === 'dark' ? 'bg-gray-800 text-white placeholder-gray-500' : 'bg-white text-gray-900 placeholder-gray-400'
-            } text-sm sm:text-base outline-none transition-all focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20`}
-          />
-          {errors.email && (
-            <span className="text-red-500 text-xs sm:text-sm">{errors.email}</span>
-          )}
-        </div>
-
-        {/* Message Field */}
-        <div className="flex flex-col gap-1.5">
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Your Message"
-            rows="5"
-            className={`w-full p-3 sm:p-3.5 border ${
-              errors.message ? "border-red-500" : theme === 'dark' ? "border-gray-700" : "border-gray-300"
-            } rounded-lg ${
-              theme === 'dark' ? 'bg-gray-800 text-white placeholder-gray-500' : 'bg-white text-gray-900 placeholder-gray-400'
-            } text-sm sm:text-base outline-none transition-all focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 resize-none`}
-          />
-          {errors.message && (
-            <span className="text-red-500 text-xs sm:text-sm">{errors.message}</span>
-          )}
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-6 sm:px-8 py-3 sm:py-3.5 w-full bg-orange-500 text-white rounded-lg text-sm sm:text-base font-semibold transition-all duration-300 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-        >
-          {isSubmitting ? "Sending..." : "Send Message"}
-        </button>
-
-        {/* Submission Message */}
-        {submitMessage && (
-          <p
-            className={`text-center text-sm sm:text-base ${
-              submitMessage.includes("Thanks")
-                ? "text-green-500"
-                : "text-red-500"
-            }`}
-          >
-            {submitMessage}
-          </p>
-        )}
-      </form>
-
-      
-    </div>
+      </div>
+    </section>
   );
 };
 

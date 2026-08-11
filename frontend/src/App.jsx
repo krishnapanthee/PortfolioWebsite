@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import Experience from "./components/Experience";
+import Education from "./components/Education";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
+import Blog from "./components/Blog";
+import Testimonials from "./components/Testimonials";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import AiAssistant from "./components/AiAssistant";
 import "./App.css";
@@ -15,44 +20,32 @@ import "./App.css";
  */
 const AppContent = () => {
   const { theme } = useTheme();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Show loading spinner
-  if (isLoading) {
-    return (
-      <div className={`loader ${theme === "dark" ? "!bg-black" : "!bg-white"}`}>
-        <div className="spinner"></div>
-      </div>
-    );
-  }
 
   return (
     <div
-      className={`min-h-screen transition-colors ${
-        theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+      className={`min-h-screen transition-colors duration-300 ${
+        theme === "dark" ? "bg-[#0a0a0a] text-[#fafafa]" : "bg-[#fafafa] text-[#0a0a0a]"
       }`}
     >
       {/* Navigation Bar */}
       <Header />
 
       {/* Main Content Container */}
-      <div className="w-full flex justify-center">
-        <div
-          className={`w-full max-w-[1200px] px-4 sm:px-6 md:px-8 mx-auto transition-colors duration-300`}
-        >
+      <main className="w-full flex justify-center">
+        <div className="w-full max-w-[900px] px-6 mx-auto">
           <Hero />
           <About />
+          <Experience />
+          <Education />
           <Skills />
           <Projects />
+          {/* <Blog /> */}
+          <Testimonials />
+          <Contact />
         </div>
-      </div>
+      </main>
 
-      {/* Footr */}
+      {/* Footer */}
       <Footer />
 
       {/* AI Assistant Floating Chat */}
