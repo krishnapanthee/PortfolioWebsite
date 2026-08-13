@@ -55,7 +55,7 @@ const Footer = ({ data }) => {
             ))}
           </div>
 
-          <p className={`font-mono text-xs ${theme === "dark" ? "text-[#a3a3a3]" : "text-[#737373]"}`}>
+          <p className={`font-mono text-xs font-semibold tracking-tight ${theme === "dark" ? "text-[#e5e5e5]" : "text-[#171717]"}`}>
             © {new Date().getFullYear()} Krishna Panthi
           </p>
         </div>

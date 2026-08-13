@@ -13,9 +13,9 @@ const About = ({ data }) => {
   const paragraphs = data?.paragraphs?.length
     ? data.paragraphs
     : [
-        "I'm Krishna Panthi, a full-stack developer based in Nepal. I specialize in the MERN stack and build clean, efficient digital solutions with Next.js and PostgreSQL.",
-        "My goal is to create web applications that are as powerful as they are intuitive - shipping products that real people use, not just 'projects'.",
-      ];
+      "I'm Krishna Panthi, a full-stack developer based in Nepal. I specialize in the MERN stack and build clean, efficient digital solutions with Next.js and PostgreSQL.",
+      "My goal is to create web applications that are as powerful as they are intuitive - shipping products that real people use, not just 'projects'.",
+    ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,10 +41,11 @@ const About = ({ data }) => {
   return (
     <section id="about" ref={sectionRef} className="py-10 sm:py-12">
       <div className={`${isVisible ? "animate-fadeIn" : "opacity-0"}`}>
-        {/* Section label */}
-        <p className={`font-mono text-sm mb-4 text-[#10b981]`}>
-          about
-        </p>
+        <div className="flex items-center gap-2 mb-6">
+          <p className="font-mono text-xs font-semibold uppercase tracking-wider text-[#10b981]">
+            About Me
+          </p>
+        </div>
 
         <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center md:items-start">
           {/* Photo - First on mobile, Last on desktop */}
@@ -66,9 +67,8 @@ const About = ({ data }) => {
             {paragraphs.map((p, idx) => (
               <p
                 key={idx}
-                className={`text-base sm:text-lg leading-relaxed ${
-                  theme === "dark" ? "text-[#a3a3a3]" : "text-[#525252]"
-                }`}
+                className={`text-base sm:text-lg leading-relaxed ${theme === "dark" ? "text-[#a3a3a3]" : "text-[#525252]"
+                  }`}
               >
                 {p}
               </p>

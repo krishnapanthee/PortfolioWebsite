@@ -52,8 +52,8 @@ const Hero = ({ data }) => {
 
         {/* Status */}
         <p
-          className={`font-mono text-sm ${
-            theme === "dark" ? "text-[#525252]" : "text-[#a3a3a3]"
+          className={`font-mono text-sm font-medium tracking-tight ${
+            theme === "dark" ? "text-[#a3a3a3]" : "text-[#525252]"
           }`}
         >
           {statusText}
@@ -65,10 +65,10 @@ const Hero = ({ data }) => {
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex items-center gap-2 text-sm font-mono transition-colors ${
+            className={`flex items-center gap-2 text-sm font-mono font-medium tracking-tight transition-colors ${
               theme === "dark"
-                ? "text-[#a3a3a3] hover:text-[#10b981]"
-                : "text-[#737373] hover:text-[#10b981]"
+                ? "text-[#e5e5e5] hover:text-[#10b981]"
+                : "text-[#171717] hover:text-[#10b981]"
             }`}
           >
             <Github size={16} />
@@ -80,10 +80,10 @@ const Hero = ({ data }) => {
               href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 text-sm font-mono transition-colors ${
+              className={`flex items-center gap-2 text-sm font-mono font-medium tracking-tight transition-colors ${
                 theme === "dark"
-                  ? "text-[#a3a3a3] hover:text-[#10b981]"
-                  : "text-[#737373] hover:text-[#10b981]"
+                  ? "text-[#e5e5e5] hover:text-[#10b981]"
+                  : "text-[#171717] hover:text-[#10b981]"
               }`}
             >
               <FileText size={16} />

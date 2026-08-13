@@ -2,12 +2,13 @@
 
 import { useTheme } from "../context/ThemeContext";
 import { useState, useEffect, useRef } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Briefcase } from "lucide-react";
 
 const Experience = ({ data }) => {
   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const isDark = theme === "dark";
 
   const defaultExperiences = [
     {
@@ -70,56 +71,75 @@ const Experience = ({ data }) => {
   };
 
   return (
-    <section id="experience" ref={sectionRef} className="py-10 sm:py-12">
+    <section id="experience" ref={sectionRef} className="py-10 sm:py-14">
       <div className={`${isVisible ? "animate-fadeIn" : "opacity-0"}`}>
-        <p className="font-mono text-sm mb-4 text-[#10b981]">experience</p>
+        <div className="flex items-center gap-2 mb-6">
+          <p className="font-mono text-xs font-semibold uppercase tracking-wider text-[#10b981]">
+            Work Experience
+          </p>
+        </div>
 
-        <div className="space-y-0">
+        <div className="grid grid-cols-1 gap-4">
           {experiences.map((exp, index) => {
             const formattedUrl = formatCompanyUrl(exp.companyUrl);
+
             return (
               <div
                 key={exp._id || index}
-                className={`group grid grid-cols-1 sm:grid-cols-[180px_1fr] gap-1 sm:gap-8 py-6 ${
-                  index !== experiences.length - 1
-                    ? `border-b ${theme === "dark" ? "border-[#1a1a1a]" : "border-[#f0f0f0]"}`
-                    : ""
-                }`}
+                className={`p-5 sm:p-6 rounded-2xl border transition-all duration-300 hover:shadow-lg space-y-4 ${isDark
+                  ? "bg-[#111111]/80 border-[#222222] hover:border-[#10b981]/40 hover:bg-[#141414]"
+                  : "bg-white/90 border-[#e2e8f0] hover:border-[#10b981]/50 hover:bg-[#f8fafc]"
+                  }`}
               >
-                <p className={`font-mono text-xs tracking-wide ${theme === "dark" ? "text-[#525252]" : "text-[#a3a3a3]"} pt-1`}>
-                  {exp.period}
-                </p>
-
-                <div className="space-y-3">
-                  <div>
-                    <h3 className={`font-medium text-base ${theme === "dark" ? "text-[#e5e5e5]" : "text-[#171717]"}`}>
-                      {exp.role} <span className={`${theme === "dark" ? "text-[#525252]" : "text-[#a3a3a3]"}`}>·</span>{" "}
-                      {formattedUrl ? (
-                        <a
-                          href={formattedUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[#10b981] hover:underline font-semibold transition-colors"
-                        >
-                          <span>{exp.company}</span>
-                          <ArrowUpRight size={14} className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        </a>
-                      ) : (
-                        <span className={`${theme === "dark" ? "text-[#a3a3a3]" : "text-[#737373]"}`}>{exp.company}</span>
-                      )}
-                    </h3>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className={`p-2 rounded-xl ${isDark ? "bg-[#1a1a1a] text-[#10b981]" : "bg-[#f1f5f9] text-[#059669]"
+                        }`}
+                    >
+                      <Briefcase size={16} />
+                    </div>
+                    <div>
+                      <h3 className={`font-semibold text-base sm:text-lg ${isDark ? "text-[#e5e5e5]" : "text-[#0f172a]"}`}>
+                        {exp.role}{" "}
+                        <span className="text-[#10b981] font-normal">•</span>{" "}
+                        {formattedUrl ? (
+                          <a
+                            href={formattedUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[#10b981] hover:underline font-semibold transition-colors"
+                          >
+                            <span>{exp.company}</span>
+                            <ArrowUpRight size={14} />
+                          </a>
+                        ) : (
+                          <span className={isDark ? "text-[#a3a3a3]" : "text-[#475569]"}>{exp.company}</span>
+                        )}
+                      </h3>
+                    </div>
                   </div>
 
-                  {exp.bullets && (
-                    <ul className="space-y-1.5 list-disc list-inside text-sm">
-                      {exp.bullets.map((bullet, idx) => (
-                        <li key={idx} className={`leading-relaxed ${theme === "dark" ? "text-[#a3a3a3]" : "text-[#525252]"}`}>
-                          <span className="-ml-1">{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <span
+                    className={`font-mono text-xs px-3 py-1 rounded-full self-start sm:self-auto ${isDark ? "bg-[#1c1c1c] text-[#737373]" : "bg-[#f1f5f9] text-[#64748b]"
+                      }`}
+                  >
+                    {exp.period}
+                  </span>
                 </div>
+
+                {exp.bullets && (
+                  <ul className="space-y-2 text-xs sm:text-sm pl-2">
+                    {exp.bullets.map((bullet, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] mt-2 flex-shrink-0"></span>
+                        <span className={`leading-relaxed ${isDark ? "text-[#a3a3a3]" : "text-[#64748b]"}`}>
+                          {bullet}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             );
           })}

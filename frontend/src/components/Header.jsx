@@ -9,14 +9,14 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "about", href: "#about" },
-    { label: "experience", href: "#experience" },
-    { label: "education", href: "#education" },
-    { label: "skills", href: "#skills" },
-    { label: "projects", href: "#projects" },
-    { label: "writings", href: "#writings" },
-    { label: "faq", href: "#faq" },
-    { label: "contact", href: "#contact" },
+    { label: "About", href: "#about" },
+    { label: "Experience", href: "#experience" },
+    { label: "Education", href: "#education" },
+    { label: "Skills", href: "#skills" },
+    { label: "Projects", href: "#projects" },
+    { label: "Certifications", href: "#certifications" },
+    { label: "Writings", href: "#writings" },
+    { label: "Contact", href: "#contact" },
   ];
 
   const handleNavClick = (e, href) => {
@@ -61,9 +61,9 @@ const Header = () => {
               key={href}
               href={href}
               onClick={(e) => handleNavClick(e, href)}
-              className={`font-mono text-[13px] transition-colors ${theme === "dark"
+              className={`font-mono text-[13px] font-medium tracking-tight transition-colors ${theme === "dark"
                 ? "text-[#a3a3a3] hover:text-white"
-                : "text-[#737373] hover:text-black"
+                : "text-[#525252] hover:text-black"
                 }`}
             >
               {label}
@@ -140,9 +140,9 @@ const Header = () => {
                 key={href}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                className={`font-mono text-sm transition-all duration-300 ${theme === "dark"
+                className={`font-mono text-sm font-medium tracking-tight transition-all duration-300 ${theme === "dark"
                   ? "text-[#a3a3a3] hover:text-white"
-                  : "text-[#737373] hover:text-black"
+                  : "text-[#525252] hover:text-black"
                   } ${isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"}`}
                 style={{ transitionDelay: `${index * 50 + 100}ms` }}
               >

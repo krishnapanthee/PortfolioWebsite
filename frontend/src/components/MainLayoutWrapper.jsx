@@ -8,6 +8,7 @@ import Experience from "./Experience";
 import Education from "./Education";
 import Skills from "./Skills";
 import Projects from "./Projects";
+import Certifications from "./Certifications";
 import Blog from "./Blog";
 import Testimonials from "./Testimonials";
 import Faq from "./Faq";
@@ -22,6 +23,7 @@ export default function MainLayoutWrapper({
   education,
   skills,
   projects,
+  certifications,
   posts,
   testimonials,
   faqs,
@@ -45,6 +47,7 @@ export default function MainLayoutWrapper({
           <Education data={education} />
           <Skills data={skills} />
           <Projects data={projects} />
+          <Certifications data={certifications} />
           <Blog data={posts} />
           <Testimonials data={testimonials} />
           <Faq data={faqs} />

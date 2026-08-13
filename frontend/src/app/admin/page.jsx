@@ -10,7 +10,7 @@ import {
   Briefcase,
   HelpCircle,
   ArrowUpRight,
-  ExternalLink,
+  Award,
   Sparkles,
   User,
   Wrench,
@@ -27,26 +27,26 @@ export default function AdminDashboardOverview() {
     projects: 0,
     posts: 0,
     experiences: 0,
-    faqs: 0,
+    certifications: 0,
   });
 
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const [prj, pst, exp, faq] = await Promise.all([
+        const [prj, pst, exp, cert] = await Promise.all([
           fetch("/api/projects").then((r) => r.json()),
           fetch("/api/posts").then((r) => r.json()),
           fetch("/api/experiences").then((r) => r.json()),
-          fetch("/api/faqs").then((r) => r.json()),
+          fetch("/api/certifications?all=true").then((r) => r.json()),
         ]);
 
         setStats({
           projects: Array.isArray(prj) ? prj.length : 0,
           posts: Array.isArray(pst) ? pst.length : 0,
           experiences: Array.isArray(exp) ? exp.length : 0,
-          faqs: Array.isArray(faq) ? faq.length : 0,
+          certifications: Array.isArray(cert) ? cert.length : 0,
         });
-      } catch (e) {}
+      } catch (e) { }
     };
     loadStats();
   }, []);
@@ -55,7 +55,7 @@ export default function AdminDashboardOverview() {
     { title: "Portfolio Projects", count: stats.projects, href: "/admin/projects", icon: FolderGit2 },
     { title: "Published Articles", count: stats.posts, href: "/admin/blog", icon: FileText },
     { title: "Work Experiences", count: stats.experiences, href: "/admin/experience", icon: Briefcase },
-    { title: "FAQ Items (AEO)", count: stats.faqs, href: "/admin/faqs", icon: HelpCircle },
+    { title: "Certifications & Trainings", count: stats.certifications, href: "/admin/certifications", icon: Award },
   ];
 
   const quickLinks = [
@@ -64,7 +64,7 @@ export default function AdminDashboardOverview() {
     { label: "Projects Portfolio", desc: "Manage showcase projects", href: "/admin/projects", icon: FolderGit2 },
     { label: "Articles & Blog", desc: "Publish tech insights & tutorials", href: "/admin/blog", icon: FileText },
     { label: "Technical Skills", desc: "Organize frontend & backend stack", href: "/admin/skills", icon: Wrench },
-    { label: "AEO FAQs", desc: "Manage entity Q&A for search engines", href: "/admin/faqs", icon: HelpCircle },
+    { label: "FAQs", desc: "Manage FAQs ", href: "/admin/faqs", icon: HelpCircle },
   ];
 
   return (
@@ -77,9 +77,8 @@ export default function AdminDashboardOverview() {
       <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto">
         {/* Welcome Header Card */}
         <div
-          className={`border rounded-2xl p-5 sm:p-6 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
-            isDark ? "bg-[#141414] border-[#222222]" : "bg-white border-[#e2e8f0] shadow-sm"
-          }`}
+          className={`border rounded-2xl p-5 sm:p-6 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${isDark ? "bg-[#141414] border-[#222222]" : "bg-white border-[#e2e8f0] shadow-sm"
+            }`}
         >
           <div className="space-y-1">
             <h2 className={`text-xl sm:text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
@@ -99,11 +98,10 @@ export default function AdminDashboardOverview() {
               <Link
                 key={idx}
                 href={card.href}
-                className={`border rounded-2xl p-5 transition-all group ${
-                  isDark
-                    ? "bg-[#111111] border-[#222222] hover:border-[#10b981]/40 hover:bg-[#161616]"
-                    : "bg-white border-[#e2e8f0] hover:border-[#10b981]/40 hover:shadow-md shadow-sm"
-                }`}
+                className={`border rounded-2xl p-5 transition-all group ${isDark
+                  ? "bg-[#111111] border-[#222222] hover:border-[#10b981]/40 hover:bg-[#161616]"
+                  : "bg-white border-[#e2e8f0] hover:border-[#10b981]/40 hover:shadow-md shadow-sm"
+                  }`}
               >
                 <div className="flex justify-between items-center">
                   <span className={`text-xs font-medium uppercase tracking-wider ${isDark ? "text-[#a3a3a3]" : "text-[#64748b]"}`}>
@@ -132,9 +130,8 @@ export default function AdminDashboardOverview() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Quick Management Shortcuts */}
           <div
-            className={`lg:col-span-2 border rounded-2xl p-5 sm:p-6 space-y-4 transition-colors ${
-              isDark ? "bg-[#111111] border-[#222222]" : "bg-white border-[#e2e8f0] shadow-sm"
-            }`}
+            className={`lg:col-span-2 border rounded-2xl p-5 sm:p-6 space-y-4 transition-colors ${isDark ? "bg-[#111111] border-[#222222]" : "bg-white border-[#e2e8f0] shadow-sm"
+              }`}
           >
             <div className={`flex items-center justify-between border-b pb-4 ${isDark ? "border-[#222222]" : "border-[#e2e8f0]"}`}>
               <h3 className={`text-sm font-bold tracking-tight flex items-center gap-2 ${isDark ? "text-white" : "text-[#0f172a]"}`}>
@@ -150,11 +147,10 @@ export default function AdminDashboardOverview() {
                   <Link
                     key={i}
                     href={item.href}
-                    className={`p-3.5 rounded-xl border flex items-center gap-3 transition-all ${
-                      isDark
-                        ? "bg-[#161616] border-[#242424] hover:border-[#10b981]/40 hover:bg-[#1a1a1a]"
-                        : "bg-[#f8fafc] border-[#e2e8f0] hover:border-[#10b981]/40 hover:bg-white"
-                    }`}
+                    className={`p-3.5 rounded-xl border flex items-center gap-3 transition-all ${isDark
+                      ? "bg-[#161616] border-[#242424] hover:border-[#10b981]/40 hover:bg-[#1a1a1a]"
+                      : "bg-[#f8fafc] border-[#e2e8f0] hover:border-[#10b981]/40 hover:bg-white"
+                      }`}
                   >
                     <div className={`p-2 rounded-lg border ${isDark ? "bg-[#1c1c1c] border-[#2e2e2e] text-[#10b981]" : "bg-white border-[#cbd5e1] text-[#059669]"}`}>
                       <Icon size={16} />
@@ -172,9 +168,8 @@ export default function AdminDashboardOverview() {
 
           {/* System & SEO Status Widget */}
           <div
-            className={`border rounded-2xl p-5 sm:p-6 space-y-4 transition-colors ${
-              isDark ? "bg-[#111111] border-[#222222]" : "bg-white border-[#e2e8f0] shadow-sm"
-            }`}
+            className={`border rounded-2xl p-5 sm:p-6 space-y-4 transition-colors ${isDark ? "bg-[#111111] border-[#222222]" : "bg-white border-[#e2e8f0] shadow-sm"
+              }`}
           >
             <div className={`flex items-center justify-between border-b pb-4 ${isDark ? "border-[#222222]" : "border-[#e2e8f0]"}`}>
               <h3 className={`text-sm font-bold tracking-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>

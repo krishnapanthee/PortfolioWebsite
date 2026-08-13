@@ -5,6 +5,7 @@ import ExperienceModel from "@/models/Experience";
 import EducationModel from "@/models/Education";
 import SkillModel from "@/models/Skill";
 import ProjectModel from "@/models/Project";
+import CertificationModel from "@/models/Certification";
 import PostModel from "@/models/Post";
 import TestimonialModel from "@/models/Testimonial";
 import FaqModel from "@/models/Faq";
@@ -69,6 +70,7 @@ async function getPortfolioData() {
       education,
       skills,
       projects,
+      certifications,
       posts,
       testimonials,
       faqs,
@@ -80,6 +82,7 @@ async function getPortfolioData() {
       EducationModel.find().sort({ order: 1, createdAt: -1 }).lean(),
       SkillModel.find().sort({ order: 1, createdAt: 1 }).lean(),
       ProjectModel.find().sort({ order: 1, createdAt: -1 }).lean(),
+      CertificationModel.find({ isPublished: true }).sort({ order: 1, createdAt: -1 }).lean(),
       PostModel.find({ published: true }).sort({ createdAt: -1 }).lean(),
       TestimonialModel.find().sort({ order: 1, createdAt: -1 }).lean(),
       FaqModel.find().sort({ order: 1, createdAt: 1 }).lean(),
@@ -96,6 +99,7 @@ async function getPortfolioData() {
       education: serialize(education),
       skills: serialize(skills),
       projects: serialize(projects),
+      certifications: serialize(certifications),
       posts: serialize(posts),
       testimonials: serialize(testimonials),
       faqs: serialize(faqs),
@@ -143,6 +147,7 @@ export default async function Home() {
         education={data.education}
         skills={data.skills}
         projects={data.projects}
+        certifications={data.certifications}
         posts={data.posts}
         testimonials={data.testimonials}
         faqs={data.faqs}

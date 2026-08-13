@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "../context/ThemeContext";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 
 const Projects = ({ data }) => {
   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const isDark = theme === "dark";
 
   const defaultProjects = [
     {
@@ -50,69 +51,101 @@ const Projects = ({ data }) => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-10 sm:py-12">
+    <section id="projects" ref={sectionRef} className="py-10 sm:py-14">
       <div className={`${isVisible ? "animate-fadeIn" : "opacity-0"}`}>
-        <p className="font-mono text-sm mb-4 text-[#10b981]">projects</p>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <p className="font-mono text-xs font-semibold uppercase tracking-wider text-[#10b981]">
+              Featured Projects
+            </p>
+          </div>
+          <a
+            href="https://github.com/krishnapanthee"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`font-mono text-xs font-medium tracking-tight transition-colors flex items-center gap-1 ${
+              isDark ? "text-[#a3a3a3] hover:text-[#10b981]" : "text-[#475569] hover:text-[#10b981]"
+            }`}
+          >
+            <span>GitHub Profile</span>
+            <ArrowUpRight size={13} />
+          </a>
+        </div>
 
-        <div className="space-y-0">
+        <div className="grid grid-cols-1 gap-4">
           {projects.map((project, index) => (
-            <a
+            <div
               key={project._id || index}
-              href={project.demoUrl || project.githubUrl || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-8 gap-y-2 py-5 transition-colors ${
-                index !== projects.length - 1
-                  ? `border-b ${theme === "dark" ? "border-[#1a1a1a]" : "border-[#f0f0f0]"}`
-                  : ""
+              className={`group p-5 sm:p-6 rounded-2xl border transition-all duration-300 hover:shadow-lg flex flex-col justify-between gap-4 ${
+                isDark
+                  ? "bg-[#111111]/80 border-[#222222] hover:border-[#10b981]/40 hover:bg-[#141414]"
+                  : "bg-white/90 border-[#e2e8f0] hover:border-[#10b981]/50 hover:bg-[#f8fafc]"
               }`}
             >
-              <div className="space-y-1.5">
-                <h3
-                  className={`font-medium text-[15px] flex items-center gap-1.5 transition-colors ${
-                    theme === "dark"
-                      ? "text-[#e5e5e5] group-hover:text-[#10b981]"
-                      : "text-[#171717] group-hover:text-[#10b981]"
-                  }`}
-                >
-                  {project.title}
-                  <ArrowUpRight
-                    size={14}
-                    className="opacity-0 -translate-y-0.5 translate-x-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200"
-                  />
-                </h3>
-                <p className={`text-sm leading-relaxed ${theme === "dark" ? "text-[#737373]" : "text-[#737373]"}`}>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-4">
+                  <h3
+                    className={`font-semibold text-lg tracking-tight transition-colors ${
+                      isDark ? "text-[#e5e5e5] group-hover:text-[#10b981]" : "text-[#0f172a] group-hover:text-[#059669]"
+                    }`}
+                  >
+                    {project.title}
+                  </h3>
+
+                  <div className="flex items-center gap-2">
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`p-1.5 rounded-lg border transition-colors ${
+                          isDark
+                            ? "border-[#262626] text-[#a3a3a3] hover:text-white hover:border-[#404040]"
+                            : "border-[#cbd5e1] text-[#475569] hover:text-[#0f172a]"
+                        }`}
+                        title="View Source Code"
+                      >
+                        <Github size={14} />
+                      </a>
+                    )}
+                    {project.demoUrl && (
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`p-1.5 rounded-lg border transition-colors ${
+                          isDark
+                            ? "border-[#262626] text-[#10b981] hover:bg-[#10b981]/10"
+                            : "border-[#cbd5e1] text-[#059669] hover:bg-[#10b981]/10"
+                        }`}
+                        title="Visit Live Application"
+                      >
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? "text-[#a3a3a3]" : "text-[#64748b]"}`}>
                   {project.description}
                 </p>
               </div>
 
-              <div className="flex flex-wrap sm:flex-nowrap gap-1.5 items-start pt-0.5">
+              {/* Technologies */}
+              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-inherit">
                 {(project.technologies || []).map((tech, tIdx) => (
                   <span
                     key={tIdx}
-                    className={`font-mono text-[11px] px-2 py-0.5 rounded whitespace-nowrap ${
-                      theme === "dark" ? "bg-[#171717] text-[#525252]" : "bg-[#f5f5f5] text-[#a3a3a3]"
+                    className={`font-mono text-[11px] px-2.5 py-0.5 rounded-md ${
+                      isDark ? "bg-[#1c1c1c] text-[#a3a3a3]" : "bg-[#f1f5f9] text-[#475569]"
                     }`}
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-            </a>
+            </div>
           ))}
-        </div>
-
-        <div className="mt-8">
-          <a
-            href="https://github.com/krishnapanthee"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`font-mono text-xs transition-colors ${
-              theme === "dark" ? "text-[#525252] hover:text-[#10b981]" : "text-[#a3a3a3] hover:text-[#10b981]"
-            }`}
-          >
-            view all on github →
-          </a>
         </div>
       </div>
     </section>
