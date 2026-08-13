@@ -111,40 +111,63 @@ const Header = () => {
 
       {/* Mobile Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[1000] transition-opacity duration-300 sm:hidden ${isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-          }`}
+        className={`fixed inset-0 bg-black/60 backdrop-blur-md z-[1000] transition-opacity duration-300 sm:hidden ${
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
         onClick={() => setIsMenuOpen(false)}
       />
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-screen w-[260px] z-[1001] transition-transform duration-300 ease-out sm:hidden ${theme === "dark"
-          ? "bg-[#0a0a0a] border-l border-[#262626]"
-          : "bg-[#fafafa] border-l border-[#e5e5e5]"
-          } ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 h-screen w-[280px] z-[1001] transition-transform duration-300 ease-out sm:hidden ${
+          theme === "dark"
+            ? "bg-[#0a0a0a]/95 border-l border-[#262626]"
+            : "bg-[#fafafa]/95 border-l border-[#e5e5e5]"
+        } backdrop-blur-xl shadow-2xl ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="flex flex-col h-full p-6">
-          <div className="flex justify-end mb-12">
+          {/* Mobile Menu Header */}
+          <div
+            className={`flex justify-between items-center pb-4 mb-8 border-b ${
+              theme === "dark" ? "border-[#222222]" : "border-[#e5e5e5]"
+            }`}
+          >
+            <a
+              href="/"
+              onClick={handleLogoClick}
+              className={`font-mono text-sm font-bold tracking-tight transition-colors ${
+                theme === "dark" ? "text-white" : "text-black"
+              }`}
+            >
+              kp<span className="text-[#10b981]">.</span>
+            </a>
+
             <button
               onClick={() => setIsMenuOpen(false)}
-              className={`transition-colors ${theme === "dark" ? "text-[#a3a3a3] hover:text-white" : "text-[#737373] hover:text-black"
-                }`}
+              className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                theme === "dark"
+                  ? "text-[#a3a3a3] hover:text-white hover:bg-[#1a1a1a]"
+                  : "text-[#737373] hover:text-black hover:bg-[#e2e8f0]"
+              }`}
+              aria-label="Close Menu"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
 
+          {/* Navigation Links */}
           <div className="flex flex-col gap-6">
             {navItems.map(({ href, label }, index) => (
               <a
                 key={href}
                 href={href}
                 onClick={(e) => handleNavClick(e, href)}
-                className={`font-mono text-sm font-medium tracking-tight transition-all duration-300 ${theme === "dark"
-                  ? "text-[#a3a3a3] hover:text-white"
-                  : "text-[#525252] hover:text-black"
-                  } ${isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"}`}
-                style={{ transitionDelay: `${index * 50 + 100}ms` }}
+                className={`font-mono text-sm font-medium tracking-tight transition-all duration-300 ${
+                  theme === "dark"
+                    ? "text-[#a3a3a3] hover:text-white"
+                    : "text-[#525252] hover:text-black"
+                } ${isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"}`}
+                style={{ transitionDelay: `${index * 40 + 100}ms` }}
               >
                 {label}
               </a>

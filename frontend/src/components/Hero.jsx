@@ -34,21 +34,22 @@ const Hero = ({ data }) => {
         <h2 className="sr-only">{name} - Full Stack Developer Portfolio</h2>
 
         {/* Tagline */}
-        <p
+        <div
           className={`text-lg sm:text-xl leading-relaxed max-w-lg ${
             theme === "dark" ? "text-[#a3a3a3]" : "text-[#737373]"
           }`}
         >
-          {tagline}
-          <br />
-          focused on{" "}
-          {techHighlights.map((tech, idx) => (
-            <span key={idx}>
-              <span className="text-[#10b981] font-mono">{tech}</span>
-              {idx < techHighlights.length - 1 ? (idx === techHighlights.length - 2 ? ", and " : ", ") : "."}
-            </span>
-          ))}
-        </p>
+          <p>{tagline}</p>
+          <p className="mt-1 text-xs sm:text-base md:text-lg font-mono whitespace-nowrap overflow-x-auto no-scrollbar">
+            focused on{" "}
+            {techHighlights.map((tech, idx) => (
+              <span key={idx}>
+                <span className="text-[#10b981] font-mono font-semibold">{tech}</span>
+                {idx < techHighlights.length - 1 ? (idx === techHighlights.length - 2 ? ", and " : ", ") : "."}
+              </span>
+            ))}
+          </p>
+        </div>
 
         {/* Status */}
         <p
