@@ -9,6 +9,7 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Blog from "./components/Blog";
 import Testimonials from "./components/Testimonials";
+import Faq from "./components/Faq";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import AiAssistant from "./components/AiAssistant";
@@ -39,8 +40,9 @@ const AppContent = () => {
           <Education />
           <Skills />
           <Projects />
-          {/* <Blog /> */}
+          <Blog />
           <Testimonials />
+          <Faq />
           <Contact />
         </div>
       </main>

@@ -1,8 +1,19 @@
-import { useTheme } from "../context/ThemeContext";
-import { Github } from "lucide-react";
+"use client";
 
-const Hero = () => {
+import { useTheme } from "../context/ThemeContext";
+import { Github, FileText } from "lucide-react";
+
+const Hero = ({ data }) => {
   const { theme } = useTheme();
+
+  const name = data?.name || "Krishna Panthi";
+  const tagline = data?.tagline || "full-stack developer building things for the web.";
+  const techHighlights = data?.techHighlights?.length
+    ? data.techHighlights
+    : ["React", "Node.js", "Next.js", "TypeScript", "PostgreSQL"];
+  const statusText = data?.statusText || "// currently open to opportunities";
+  const githubUrl = data?.githubUrl || "https://github.com/krishnapanthee";
+  const resumeUrl = data?.resumeUrl || "";
 
   return (
     <section
@@ -16,11 +27,11 @@ const Hero = () => {
             theme === "dark" ? "text-white" : "text-[#0a0a0a]"
           }`}
         >
-          Krishna Panthi
+          {name}
         </h1>
 
         {/* SEO hidden text */}
-        <h2 className="sr-only">Krishna Panthi - Full Stack Developer Portfolio</h2>
+        <h2 className="sr-only">{name} - Full Stack Developer Portfolio</h2>
 
         {/* Tagline */}
         <p
@@ -28,15 +39,15 @@ const Hero = () => {
             theme === "dark" ? "text-[#a3a3a3]" : "text-[#737373]"
           }`}
         >
-          full-stack developer building things for the web.
+          {tagline}
           <br />
           focused on{" "}
-          <span className="text-[#10b981]">React</span>,{" "}
-          <span className="text-[#10b981]">Node.js</span>,{" "}
-          <span className="text-[#10b981]">Next.js</span>,{" "}
-          <span className="text-[#10b981]">TypeScript</span>,{" "}
-          and{" "}
-          <span className="text-[#10b981]">PostgreSQL</span>.
+          {techHighlights.map((tech, idx) => (
+            <span key={idx}>
+              <span className="text-[#10b981] font-mono">{tech}</span>
+              {idx < techHighlights.length - 1 ? (idx === techHighlights.length - 2 ? ", and " : ", ") : "."}
+            </span>
+          ))}
         </p>
 
         {/* Status */}
@@ -45,13 +56,13 @@ const Hero = () => {
             theme === "dark" ? "text-[#525252]" : "text-[#a3a3a3]"
           }`}
         >
-          {"// currently open to opportunities"}
+          {statusText}
         </p>
 
         {/* Links */}
         <div className="flex items-center gap-6 pt-2">
           <a
-            href="https://github.com/krishnapanthee"
+            href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={`flex items-center gap-2 text-sm font-mono transition-colors ${
@@ -63,6 +74,22 @@ const Hero = () => {
             <Github size={16} />
             github →
           </a>
+
+          {resumeUrl && (
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center gap-2 text-sm font-mono transition-colors ${
+                theme === "dark"
+                  ? "text-[#a3a3a3] hover:text-[#10b981]"
+                  : "text-[#737373] hover:text-[#10b981]"
+              }`}
+            >
+              <FileText size={16} />
+              resume / cv →
+            </a>
+          )}
         </div>
       </div>
     </section>

@@ -1,7 +1,8 @@
+"use client";
+
 import { useState, useRef, useEffect } from "react";
 import { Sparkles, X, Send, User, Loader2, RotateCcw } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-import heroImg from "../assets/imgPortfolio.png";
 
 const BoyAvatar = ({ size = 28, className = "" }) => (
   <svg
@@ -135,7 +136,11 @@ const AiAssistant = () => {
         }]
       };
 
-      const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+      const API_KEY =
+        (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_GEMINI_API_KEY) ||
+        (typeof process !== "undefined" && process.env?.VITE_GEMINI_API_KEY) ||
+        (typeof import.meta !== "undefined" && import.meta.env?.VITE_GEMINI_API_KEY) ||
+        "";
       if (!API_KEY) throw new Error("API Key missing");
 
       // Prepare history: Gemini uses "model" role for assistant
@@ -231,7 +236,7 @@ const AiAssistant = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[1000] font-sans">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[1000] font-sans max-w-[calc(100vw-2rem)]">
       {/* Chat Bubble Button */}
       {!isOpen && (
         <button
@@ -251,13 +256,13 @@ const AiAssistant = () => {
       {/* Chat Window */}
       {isOpen && (
         <div
-          className={`flex flex-col w-[320px] sm:w-[380px] h-[500px] rounded-2xl shadow-2xl overflow-hidden animate-fadeInScale ${theme === "dark" ? "bg-gray-900 border border-gray-800" : "bg-white border border-gray-200"
+          className={`flex flex-col w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] h-[480px] sm:h-[500px] max-h-[80vh] rounded-2xl shadow-2xl overflow-hidden animate-fadeInScale ${theme === "dark" ? "bg-gray-900 border border-gray-800" : "bg-white border border-gray-200"
             }`}
         >
           {/* Header */}
           <div className="bg-orange-500 p-4 flex justify-between items-center text-white">
             <div className="flex items-center gap-2">
-              <img src={heroImg} alt="Krishna" className="w-7 h-7 rounded-full object-cover border border-white/30 shadow-sm" />
+              <img src="/assets/imgPortfolio.png" alt="Krishna" className="w-7 h-7 rounded-full object-cover border border-white/30 shadow-sm" />
               <span className="font-bold uppercase tracking-wider text-sm">Krishna AI</span>
             </div>
             <div className="flex items-center gap-2">
@@ -289,7 +294,7 @@ const AiAssistant = () => {
               >
                 <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden ${msg.role === "user" ? "bg-orange-500" : "border-2 border-orange-500/20"}
                   `}>
-                  {msg.role === "user" ? <User size={16} className="text-white" /> : <img src={heroImg} alt="Krishna" className="w-full h-full object-cover" />}
+                  {msg.role === "user" ? <User size={16} className="text-white" /> : <img src="/assets/imgPortfolio.png" alt="Krishna" className="w-full h-full object-cover" />}
                 </div>
                 <div
                   className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${msg.role === "user"
@@ -331,7 +336,7 @@ const AiAssistant = () => {
             {isLoading && (
               <div className="flex gap-2 animate-pulse">
                 <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-orange-500/20">
-                  <img src={heroImg} alt="Krishna" className="w-full h-full object-cover" />
+                  <img src="/assets/imgPortfolio.png" alt="Krishna" className="w-full h-full object-cover" />
                 </div>
                 <div className="bg-gray-100 p-3 rounded-2xl text-sm rounded-bl-none text-gray-400">
                   Thinking...
@@ -341,31 +346,36 @@ const AiAssistant = () => {
           </div>
 
           {/* Input Area */}
-          <div className={`p-4 border-t ${theme === "dark" ? "border-gray-800 bg-gray-900" : "border-gray-100 bg-white"}`}>
-            <div className="relative flex items-center">
+          <div className={`p-3 sm:p-4 border-t ${theme === "dark" ? "border-gray-800 bg-gray-900" : "border-gray-100 bg-white"}`}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSend();
+              }}
+              className="relative flex items-center"
+            >
               <input
                 type="text"
                 placeholder="Ask me anything..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 className={`w-full pl-4 pr-12 py-3 rounded-full text-sm outline-none transition-all ${theme === "dark"
                   ? "bg-gray-800 text-white focus:ring-1 focus:ring-orange-500"
                   : "bg-gray-100 text-gray-900 focus:ring-1 focus:ring-orange-500"
                   }`}
               />
               <button
-                onClick={handleSend}
-                disabled={isLoading}
-                className={`absolute right-2 p-2 rounded-full transition-all duration-300 ${input.trim()
-                  ? "bg-orange-500 text-white hover:scale-105 active:scale-95 shadow-md"
-                  : `${theme === "dark" ? "bg-gray-800" : "bg-gray-100"} text-gray-500 opacity-50 cursor-not-allowed`
+                type="submit"
+                disabled={isLoading || !input.trim()}
+                aria-label="Send message"
+                className={`absolute right-1.5 p-2.5 rounded-full transition-all duration-200 z-10 flex items-center justify-center ${input.trim() && !isLoading
+                  ? "bg-orange-500 text-white hover:scale-105 active:scale-95 shadow-md cursor-pointer"
+                  : `${theme === "dark" ? "bg-gray-800 text-gray-600" : "bg-gray-200 text-gray-400"} cursor-not-allowed opacity-60`
                   }`}
               >
                 <Send size={16} />
               </button>
-            </div>
-
+            </form>
           </div>
         </div>
       )}

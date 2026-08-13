@@ -1,7 +1,12 @@
+"use client";
+
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "../context/ThemeContext";
 
-const rawFormId = import.meta.env.VITE_FORMSPREE_FORM_ID || "";
+const rawFormId =
+  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_FORMSPREE_FORM_ID) ||
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_FORMSPREE_FORM_ID) ||
+  "";
 const formEndpoint = rawFormId.startsWith("http")
   ? rawFormId
   : rawFormId

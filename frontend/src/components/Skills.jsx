@@ -1,10 +1,35 @@
+"use client";
+
 import { useTheme } from "../context/ThemeContext";
 import { useState, useEffect, useRef } from "react";
 
-const Skills = () => {
+const Skills = ({ data }) => {
   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+
+  const defaultCategories = [
+    {
+      title: "frontend",
+      skills: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"],
+    },
+    {
+      title: "backend",
+      skills: ["Node.js", "Express", "Prisma"],
+    },
+    {
+      title: "databases",
+      skills: ["PostgreSQL", "MongoDB"],
+    },
+    {
+      title: "tools",
+      skills: ["Github", "Vercel", "Postman", "Docker", "Figma", "NGINX", "Linux", "Redis", "Ubuntu"],
+    },
+  ];
+
+  const skillCategories = data?.length
+    ? data.map((item) => ({ title: item.category, skills: item.skills }))
+    : defaultCategories;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -27,55 +52,26 @@ const Skills = () => {
     };
   }, []);
 
-  const categories = [
-    {
-      title: "frontend",
-      skills: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Tailwind CSS"],
-    },
-    {
-      title: "backend",
-      skills: ["Node.js", "Express", "Prisma"],
-    },
-    {
-      title: "databases",
-      skills: ["PostgreSQL", "MongoDB"],
-    },
-    {
-      title: "tools",
-      skills: ["Github", "Vercel", "Postman", "Docker", "Figma", "NGINX", "Linux", "Redis", "Ubuntu"],
-    },
-  ];
-
   return (
-    <section
-      id="skills"
-      ref={sectionRef}
-      className="py-10 sm:py-12"
-    >
+    <section id="skills" ref={sectionRef} className="py-10 sm:py-12">
       <div className={`${isVisible ? "animate-fadeIn" : "opacity-0"}`}>
-        {/* Section label */}
-        <p className="font-mono text-sm mb-4 text-[#10b981]">
-          skills
-        </p>
+        <p className="font-mono text-sm mb-4 text-[#10b981]">skills</p>
 
-        {/* Skills by category */}
-        <div className="space-y-8">
-          {categories.map((cat) => (
-            <div key={cat.title}>
-              <p
-                className={`font-mono text-xs tracking-wide mb-3 ${theme === "dark" ? "text-[#525252]" : "text-[#a3a3a3]"
-                  }`}
-              >
+        <div className="space-y-6">
+          {skillCategories.map((cat, index) => (
+            <div key={index} className="space-y-2">
+              <h3 className={`font-mono text-xs ${theme === "dark" ? "text-[#525252]" : "text-[#a3a3a3]"}`}>
                 {cat.title}
-              </p>
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {cat.skills.map((skill) => (
+                {cat.skills.map((skill, sIdx) => (
                   <span
-                    key={skill}
-                    className={`font-mono text-[13px] px-3 py-1.5 rounded border transition-colors ${theme === "dark"
-                      ? "border-[#262626] text-[#a3a3a3] hover:border-[#10b981] hover:text-[#10b981]"
-                      : "border-[#e5e5e5] text-[#525252] hover:border-[#10b981] hover:text-[#10b981]"
-                      }`}
+                    key={sIdx}
+                    className={`font-mono text-xs px-2.5 py-1 rounded transition-colors ${
+                      theme === "dark"
+                        ? "bg-[#171717] text-[#d4d4d4] hover:text-[#10b981] border border-[#262626]"
+                        : "bg-[#f5f5f5] text-[#404040] hover:text-[#10b981] border border-[#e5e5e5]"
+                    }`}
                   >
                     {skill}
                   </span>
