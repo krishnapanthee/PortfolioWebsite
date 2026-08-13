@@ -7,7 +7,7 @@ const Hero = ({ data }) => {
   const { theme } = useTheme();
 
   const name = data?.name || "Krishna Panthi";
-  const tagline = data?.tagline || "full-stack developer building things for the web.";
+  const tagline = "full-stack developer building things for the web. focused on ";
   const techHighlights = data?.techHighlights?.length
     ? data.techHighlights
     : ["React", "Node.js", "Next.js", "TypeScript", "PostgreSQL"];
@@ -23,9 +23,8 @@ const Hero = ({ data }) => {
       <div className="max-w-2xl w-full text-left space-y-6">
         {/* Name */}
         <h1
-          className={`font-mono text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight ${
-            theme === "dark" ? "text-white" : "text-[#0a0a0a]"
-          }`}
+          className={`font-mono text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight ${theme === "dark" ? "text-white" : "text-[#0a0a0a]"
+            }`}
         >
           {name}
         </h1>
@@ -34,28 +33,23 @@ const Hero = ({ data }) => {
         <h2 className="sr-only">{name} - Full Stack Developer Portfolio</h2>
 
         {/* Tagline */}
-        <div
-          className={`text-lg sm:text-xl leading-relaxed max-w-lg ${
-            theme === "dark" ? "text-[#a3a3a3]" : "text-[#737373]"
-          }`}
+        <p
+          className={`text-lg sm:text-xl leading-relaxed max-w-lg ${theme === "dark" ? "text-[#a3a3a3]" : "text-[#737373]"
+            }`}
         >
-          <p>{tagline}</p>
-          <p className="mt-1 text-xs sm:text-base md:text-lg font-mono whitespace-nowrap overflow-x-auto no-scrollbar">
-            focused on{" "}
-            {techHighlights.map((tech, idx) => (
-              <span key={idx}>
-                <span className="text-[#10b981] font-mono font-semibold">{tech}</span>
-                {idx < techHighlights.length - 1 ? (idx === techHighlights.length - 2 ? ", and " : ", ") : "."}
-              </span>
-            ))}
-          </p>
-        </div>
+          {tagline}{" "}
+          {techHighlights.map((tech, idx) => (
+            <span key={idx}>
+              <span className="text-[#10b981] font-mono font-medium">{tech}</span>
+              {idx < techHighlights.length - 1 ? (idx === techHighlights.length - 2 ? ", and " : ", ") : "."}
+            </span>
+          ))}
+        </p>
 
         {/* Status */}
         <p
-          className={`font-mono text-sm font-medium tracking-tight ${
-            theme === "dark" ? "text-[#a3a3a3]" : "text-[#525252]"
-          }`}
+          className={`font-mono text-sm font-medium tracking-tight ${theme === "dark" ? "text-[#a3a3a3]" : "text-[#525252]"
+            }`}
         >
           {statusText}
         </p>
@@ -66,11 +60,10 @@ const Hero = ({ data }) => {
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex items-center gap-2 text-sm font-mono font-medium tracking-tight transition-colors ${
-              theme === "dark"
-                ? "text-[#e5e5e5] hover:text-[#10b981]"
-                : "text-[#171717] hover:text-[#10b981]"
-            }`}
+            className={`flex items-center gap-2 text-sm font-mono font-medium tracking-tight transition-colors ${theme === "dark"
+              ? "text-[#e5e5e5] hover:text-[#10b981]"
+              : "text-[#171717] hover:text-[#10b981]"
+              }`}
           >
             <Github size={16} />
             github →
@@ -81,11 +74,10 @@ const Hero = ({ data }) => {
               href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 text-sm font-mono font-medium tracking-tight transition-colors ${
-                theme === "dark"
-                  ? "text-[#e5e5e5] hover:text-[#10b981]"
-                  : "text-[#171717] hover:text-[#10b981]"
-              }`}
+              className={`flex items-center gap-2 text-sm font-mono font-medium tracking-tight transition-colors ${theme === "dark"
+                ? "text-[#e5e5e5] hover:text-[#10b981]"
+                : "text-[#171717] hover:text-[#10b981]"
+                }`}
             >
               <FileText size={16} />
               resume / cv →

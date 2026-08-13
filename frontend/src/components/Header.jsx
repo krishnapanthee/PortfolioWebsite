@@ -1,12 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
 
   const navItems = [
     { label: "About", href: "#about" },
@@ -36,20 +47,22 @@ const Header = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-[999] transition-colors duration-300 border-b ${theme === "dark"
-        ? "bg-[#0a0a0a]/90 border-[#262626]"
-        : "bg-[#fafafa]/90 border-[#e5e5e5]"
-        } backdrop-blur-md`}
+      className={`fixed top-0 left-0 w-full z-[999] transition-colors duration-300 border-b ${
+        theme === "dark"
+          ? "bg-[#0a0a0a]/90 border-[#262626]"
+          : "bg-[#fafafa]/90 border-[#e5e5e5]"
+      } backdrop-blur-md`}
     >
       <div className="max-w-[900px] mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <a
           href="/"
           onClick={handleLogoClick}
-          className={`font-mono text-sm font-semibold tracking-tight transition-colors ${theme === "dark"
-            ? "text-white hover:text-[#10b981]"
-            : "text-black hover:text-[#10b981]"
-            }`}
+          className={`font-mono text-sm font-semibold tracking-tight transition-colors ${
+            theme === "dark"
+              ? "text-white hover:text-[#10b981]"
+              : "text-black hover:text-[#10b981]"
+          }`}
         >
           kp.
         </a>
@@ -61,10 +74,11 @@ const Header = () => {
               key={href}
               href={href}
               onClick={(e) => handleNavClick(e, href)}
-              className={`font-mono text-[13px] font-medium tracking-tight transition-colors ${theme === "dark"
-                ? "text-[#a3a3a3] hover:text-white"
-                : "text-[#525252] hover:text-black"
-                }`}
+              className={`font-mono text-[13px] font-medium tracking-tight transition-colors ${
+                theme === "dark"
+                  ? "text-[#a3a3a3] hover:text-white"
+                  : "text-[#525252] hover:text-black"
+              }`}
             >
               {label}
             </a>
@@ -72,10 +86,11 @@ const Header = () => {
 
           <button
             onClick={toggleTheme}
-            className={`transition-colors ${theme === "dark"
-              ? "text-[#a3a3a3] hover:text-white"
-              : "text-[#737373] hover:text-black"
-              }`}
+            className={`transition-colors ${
+              theme === "dark"
+                ? "text-[#a3a3a3] hover:text-white"
+                : "text-[#737373] hover:text-black"
+            }`}
             aria-label="Toggle theme"
             title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
           >
@@ -87,10 +102,11 @@ const Header = () => {
         <div className="sm:hidden flex items-center gap-4">
           <button
             onClick={toggleTheme}
-            className={`transition-colors ${theme === "dark"
-              ? "text-[#a3a3a3] hover:text-white"
-              : "text-[#737373] hover:text-black"
-              }`}
+            className={`transition-colors ${
+              theme === "dark"
+                ? "text-[#a3a3a3] hover:text-white"
+                : "text-[#737373] hover:text-black"
+            }`}
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
@@ -98,10 +114,11 @@ const Header = () => {
 
           <button
             onClick={() => setIsMenuOpen(true)}
-            className={`transition-colors ${theme === "dark"
-              ? "text-[#a3a3a3] hover:text-white"
-              : "text-[#737373] hover:text-black"
-              }`}
+            className={`transition-colors ${
+              theme === "dark"
+                ? "text-[#a3a3a3] hover:text-white"
+                : "text-[#737373] hover:text-black"
+            }`}
             aria-label="Open Menu"
           >
             <Menu size={20} />
@@ -109,9 +126,9 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Overlay */}
+      {/* Mobile Overlay - Fully blurs and blocks page */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-md z-[1000] transition-opacity duration-300 sm:hidden ${
+        className={`fixed inset-0 bg-black/80 backdrop-blur-2xl z-[1000] transition-opacity duration-300 sm:hidden ${
           isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsMenuOpen(false)}
@@ -135,7 +152,7 @@ const Header = () => {
             <a
               href="/"
               onClick={handleLogoClick}
-              className={`font-mono text-sm font-bold tracking-tight transition-colors ${
+              className={`font-mono text-base font-bold tracking-tight transition-colors ${
                 theme === "dark" ? "text-white" : "text-black"
               }`}
             >
