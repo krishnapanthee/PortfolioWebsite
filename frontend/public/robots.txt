@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://krishnaprasadpanthi17.com.np/sitemap.xml

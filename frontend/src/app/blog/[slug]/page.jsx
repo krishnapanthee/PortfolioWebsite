@@ -1,7 +1,7 @@
 import { connectDB } from "@/lib/db";
 import PostModel from "@/models/Post";
 import { getPostBySlug } from "@/lib/posts";
-import { generateBlogPostSchema } from "@/lib/schema";
+import { generateBlogPostSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { notFound } from "next/navigation";
 import BlogArticleClient from "./BlogArticleClient";
 
@@ -27,16 +27,21 @@ export async function generateMetadata({ params }) {
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://krishnaprasadpanthi17.com.np";
+  const postUrl = `${siteUrl}/blog/${post.slug}`;
 
   return {
     title: `${post.metaTitle || post.title} | Krishna Panthi`,
     description: post.metaDescription || post.description,
+    alternates: {
+      canonical: postUrl,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `${siteUrl}/blog/${post.slug}`,
+      url: postUrl,
       type: "article",
       publishedTime: post.createdAt || post.date,
+      modifiedTime: post.updatedAt || post.createdAt || post.date,
       authors: ["Krishna Panthi"],
     },
     twitter: {
@@ -56,6 +61,10 @@ export default async function BlogPostPage({ params }) {
   }
 
   const postSchema = generateBlogPostSchema(post);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Writing & Articles", url: "/blog" },
+    { name: post.title, url: `/blog/${post.slug}` },
+  ]);
 
   return (
     <>
@@ -63,6 +72,12 @@ export default async function BlogPostPage({ params }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(postSchema) }}
+        />
+      )}
+      {breadcrumbSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
       )}
       <BlogArticleClient post={post} />

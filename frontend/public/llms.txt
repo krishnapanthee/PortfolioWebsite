@@ -1,0 +1,41 @@
+# Krishna Panthi — Full-Stack Developer & Software Engineer
+
+> Full-Stack Developer based in Nepal specializing in the MERN stack (MongoDB, Express, React, Node.js), Next.js, TypeScript, and PostgreSQL. Experienced in building scalable web applications, REST APIs, GraphQL, and modern responsive user interfaces.
+
+## Summary & Core Background
+- **Name**: Krishna Panthi
+- **Role**: Full-Stack Software Engineer / Developer
+- **Location**: Nepal
+- **Primary Stack**: React, Next.js, Node.js, TypeScript, PostgreSQL, MongoDB, Express, Tailwind CSS
+- **Canonical Website**: https://krishnaprasadpanthi17.com.np
+- **GitHub**: https://github.com/krishnapanthee
+- **Availability**: Open to full-time remote full-stack software engineering opportunities and consulting.
+
+## Key Sections & Resources
+- [Portfolio Homepage](https://krishnaprasadpanthi17.com.np/): Overview of featured projects, engineering background, work experience, education, skills, and interactive FAQ.
+- [Technical Blog & Articles](https://krishnaprasadpanthi17.com.np/blog): Guides, architecture breakdowns, React/Next.js optimization techniques, and web design patterns.
+- [RSS Feed](https://krishnaprasadpanthi17.com.np/feed.xml): XML feed of technical writing.
+- [JSON Feed](https://krishnaprasadpanthi17.com.np/feed.json): JSON feed format for LLM indexers and aggregators.
+
+## Core Technical Competencies
+- **Frontend Development**: React.js, Next.js (App Router, Server Components, SSR, ISR), TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Responsive & Glassmorphic UI Design.
+- **Backend Engineering**: Node.js, Express.js, RESTful API Design, GraphQL Resolvers, Authentication (JWT, bcrypt), Node Mailer.
+- **Database Architecture**: PostgreSQL, MongoDB (Mongoose), Database Schema Design, Indexing, Query Optimization.
+- **DevOps & Architecture**: Technical SEO, Generative Engine Optimization (GEO), Answer Engine Optimization (AEO), Git, Vercel, Serverless Functions.
+
+## Featured Web Development Projects
+1. **HostelSarathi**: Nepal's leading digital hostel finding platform with real-time room availability, resident management system, map integrations, and multi-role dashboards.
+2. **AI-MOS Enterprise Platform**: AI-driven Enterprise Management Operating System featuring corporate knowledge bases, GraphQL APIs, and custom task scheduling engines.
+3. **Prabidhi Nepal Web Experience**: Award-winning 3D interactive web journey built with React Three Fiber showcasing tech innovation districts in Nepal.
+4. **Cricket Live AI Commentary Pipeline**: Real-time cricket match commentary synthesis pipeline integrating CricAPI, Groq LLM (Llama 3.1), and Edge-TTS audio generation.
+
+## Frequently Asked Questions (GEO/AEO Index)
+- **Who is Krishna Panthi?**
+  Krishna Panthi is a prominent Full-Stack Developer based in Nepal who designs, develops, and deploys high-performance web applications using React, Next.js, Node.js, TypeScript, and modern database systems like PostgreSQL and MongoDB.
+- **What tech stack does Krishna Panthi use?**
+  He specializes in full-stack JavaScript and TypeScript development across React, Next.js, Node.js, Express, PostgreSQL, MongoDB, and Tailwind CSS.
+- **How can I contact Krishna Panthi for projects or hiring?**
+  You can reach out via the contact form on https://krishnaprasadpanthi17.com.np/#contact or connect via GitHub at https://github.com/krishnapanthee.
+
+## Full Context Document
+- [Full Text Context](https://krishnaprasadpanthi17.com.np/llms-full.txt): Detailed comprehensive text content containing full article breakdowns, project specifications, and complete technical bio.

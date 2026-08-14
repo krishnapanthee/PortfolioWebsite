@@ -13,6 +13,8 @@ import SocialLinkModel from "@/models/SocialLink";
 
 import {
   generatePersonSchema,
+  generateProfilePageSchema,
+  generateWebSiteSchema,
   generateFAQSchema,
   generateProjectListSchema,
 } from "@/lib/schema";
@@ -25,19 +27,13 @@ export async function generateMetadata() {
   return {
     title: "Krishna Panthi | Full-Stack Developer & Software Engineer Nepal",
     description:
-      "Krishna Panthi is a Full-Stack Developer based in Nepal specializing in React, Next.js, Node.js, TypeScript, and PostgreSQL. View portfolio, projects, and articles.",
-    keywords: [
-      "Krishna Panthi",
-      "Full Stack Developer Nepal",
-      "React Developer Nepal",
-      "Next.js Developer",
-      "MERN Stack Engineer",
-      "Software Engineer Nepal",
-    ],
-    metadataBase: new URL(siteUrl),
+      "Krishna Panthi is a Full-Stack Developer based in Nepal specializing in React, Next.js, Node.js, TypeScript, and PostgreSQL. View portfolio, projects, and technical articles.",
+    alternates: {
+      canonical: siteUrl,
+    },
     openGraph: {
-      title: "Krishna Panthi | Full-Stack Developer",
-      description: "Full-stack developer building scalable web applications.",
+      title: "Krishna Panthi | Full-Stack Developer & Software Engineer Nepal",
+      description: "Full-stack developer building scalable web applications with React, Next.js, and PostgreSQL.",
       url: siteUrl,
       siteName: "Krishna Panthi Portfolio",
       images: [
@@ -53,7 +49,7 @@ export async function generateMetadata() {
     twitter: {
       card: "summary_large_image",
       title: "Krishna Panthi | Full-Stack Developer",
-      description: "Full-stack developer building scalable web applications.",
+      description: "Full-stack developer building scalable web applications with React, Next.js, Node.js, and PostgreSQL.",
       creator: "@kishna165887",
     },
   };
@@ -115,16 +111,30 @@ export default async function Home() {
   const data = await getPortfolioData();
 
   const personSchema = generatePersonSchema(data);
+  const profilePageSchema = generateProfilePageSchema({});
+  const websiteSchema = generateWebSiteSchema({});
   const faqSchema = generateFAQSchema(data.faqs);
   const projectSchema = generateProjectListSchema(data.projects);
 
   return (
     <>
-      {/* Schema.org JSON-LD Structured Data Injection for Search Engines & AEO */}
+      {/* Schema.org JSON-LD Structured Data Injection for Search Engines, GEO & AEO */}
       {personSchema && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+      )}
+      {profilePageSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
+        />
+      )}
+      {websiteSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       )}
       {faqSchema && (

@@ -87,7 +87,7 @@ const Faq = ({ data }) => {
                       className={isOpen ? "text-[#10b981]" : isDark ? "text-[#525252]" : "text-[#94a3b8]"}
                     />
                     <h3
-                      className={`text-base font-semibold tracking-tight transition-colors ${
+                      className={`text-base font-semibold tracking-tight transition-colors faq-question ${
                         isOpen
                           ? "text-[#10b981]"
                           : isDark
@@ -114,7 +114,7 @@ const Faq = ({ data }) => {
 
                 {isOpen && (
                   <div className="mt-3.5 pt-3.5 border-t border-inherit animate-fadeIn">
-                    <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? "text-[#a3a3a3]" : "text-[#475569]"}`}>
+                    <p className={`text-xs sm:text-sm leading-relaxed faq-answer ${isDark ? "text-[#a3a3a3]" : "text-[#475569]"}`}>
                       {faq.answer}
                     </p>
                   </div>
