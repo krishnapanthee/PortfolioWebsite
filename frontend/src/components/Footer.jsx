@@ -10,7 +10,7 @@ const Footer = ({ data }) => {
     { platform: "GitHub", href: "https://github.com/krishnapanthee/", icon: Github },
     { platform: "LinkedIn", href: "https://www.linkedin.com/in/krishna-panthi-512097280/", icon: Linkedin },
     { platform: "Twitter", href: "https://x.com/kishna165887", icon: Twitter },
-    { platform: "Email", href: "https://mail.google.com/mail/?view=cm&fs=1&to=krishnapantheee@gmail.com", icon: Mail },
+    { platform: "Email", href: "mailto:krishnapantheee@gmail.com", icon: Mail },
   ];
 
   const getIcon = (platform) => {
@@ -20,6 +20,28 @@ const Footer = ({ data }) => {
     if (p.includes("twitter") || p.includes("x")) return Twitter;
     if (p.includes("email") || p.includes("mail")) return Mail;
     return LinkIcon;
+  };
+
+  const handleEmailClick = (e, targetHref) => {
+    e.preventDefault();
+    let email = "krishnapantheee@gmail.com";
+    if (targetHref.startsWith("mailto:")) {
+      email = targetHref.replace("mailto:", "");
+    } else if (targetHref.includes("to=")) {
+      const parsed = targetHref.split("to=")[1]?.split("&")[0];
+      if (parsed) email = parsed;
+    } else if (targetHref.includes("@") && !targetHref.startsWith("http")) {
+      email = targetHref;
+    }
+
+    if (typeof window !== "undefined" && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      window.location.href = `mailto:${email}`;
+    } else {
+      window.open(
+        `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`,
+        "_blank"
+      );
+    }
   };
 
   const links = data?.length
@@ -39,20 +61,29 @@ const Footer = ({ data }) => {
       >
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-5">
-            {links.map(({ platform, href, icon: Icon }, idx) => (
-              <a
-                key={idx}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={platform}
-                className={`transition-colors ${
-                  theme === "dark" ? "text-[#a3a3a3] hover:text-[#10b981]" : "text-[#737373] hover:text-[#10b981]"
-                }`}
-              >
-                <Icon size={18} />
-              </a>
-            ))}
+            {links.map(({ platform, href, icon: Icon }, idx) => {
+              const isEmail =
+                (platform || "").toLowerCase().includes("email") ||
+                (platform || "").toLowerCase().includes("mail") ||
+                href.startsWith("mailto:") ||
+                href.includes("gmail.com");
+
+              return (
+                <a
+                  key={idx}
+                  href={href}
+                  onClick={isEmail ? (e) => handleEmailClick(e, href) : undefined}
+                  target={isEmail ? undefined : "_blank"}
+                  rel={isEmail ? undefined : "noopener noreferrer"}
+                  aria-label={platform}
+                  className={`transition-colors ${
+                    theme === "dark" ? "text-[#a3a3a3] hover:text-[#10b981]" : "text-[#737373] hover:text-[#10b981]"
+                  }`}
+                >
+                  <Icon size={18} />
+                </a>
+              );
+            })}
           </div>
 
           <p className={`font-mono text-xs font-semibold tracking-tight ${theme === "dark" ? "text-[#e5e5e5]" : "text-[#171717]"}`}>
